@@ -41,6 +41,12 @@ The Laravel framework is open-source software licensed under the [MIT license](h
 
 <strong>Read more</strong> https://www.postman.com/
 
+
+
+
+
+
+
 ## Route List
 
 <b>command :</b> php artisan route:list
