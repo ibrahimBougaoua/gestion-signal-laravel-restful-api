@@ -40,6 +40,7 @@ The Laravel framework is open-source software licensed under the [MIT license](h
 
 ## Route List
 
+<pre>
 +--------+----------+-----------------------------+------+-------------------------------------------------------+--------------+
 | Domain | Method   | URI                         | Name | Action                                                | Middleware   |
 +--------+----------+-----------------------------+------+-------------------------------------------------------+--------------+
@@ -90,3 +91,4 @@ The Laravel framework is open-source software licensed under the [MIT license](h
 |        | PUT      | api/auth/signalisation/{id} |      | App\Http\Controllers\SignalisationsController@update  | api          |
 |        | DELETE   | api/auth/signalisation/{id} |      | App\Http\Controllers\SignalisationsController@destroy | api          |
 +--------+----------+-----------------------------+------+-------------------------------------------------------+--------------+
+</pre>
