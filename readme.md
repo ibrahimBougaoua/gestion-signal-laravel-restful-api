@@ -43,6 +43,8 @@ The Laravel framework is open-source software licensed under the [MIT license](h
 
 ## Route List
 
+<b>command :</b> php artisan route:list
+
 <pre>
 +--------+----------+-----------------------------+------+-------------------------------------------------------+--------------+
 | Domain | Method   | URI                         | Name | Action                                                | Middleware   |
