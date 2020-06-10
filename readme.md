@@ -5,6 +5,7 @@
 The Laravel framework is open-source software licensed under the [MIT license](https://opensource.org/licenses/MIT).
 
 <h1>gestion de signal</h1>
+<p align="center"><img src="https://www.google.com/url?sa=i&source=imgres&cd=&cad=rja&uact=8&ved=2ahUKEwjN0eSNqPfpAhUPExQKHX74C7AQjRx6BAgBEAQ&url=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dorg.thoughtcrime.securesms%26hl%3Dfr&psig=AOvVaw1XX5HTXhXy1zZ5zeBT4QR3&ust=1591880757590289" width="400"></p>
 
 ## Database Schema
 
