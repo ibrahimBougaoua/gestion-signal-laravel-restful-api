@@ -23,7 +23,7 @@ Laravel is accessible, powerful, and provides tools required for large, robust a
 
 ## Database Schema
 
-<Strong>Users</Strong>('user_id','name','email','email_verified_at','password','role','rememberToken','timestamps');
+<strong>Users</strong>('user_id','name','email','email_verified_at','password','role','rememberToken','timestamps');
 Signalisation('signalisation_id','desc','localisation','photo','lieu','nature','cause','timestamps');
 Signalers('user_id','signalisation_id','timestamps')
 Evaluers('user_id','intervention_id','timestamps');
@@ -33,6 +33,8 @@ Membres('user_id','equipe_id','timestamps');
 Equipe('equipe_id','d_f_equipe','mail','telephone','timestamps');
 Images('id','name','size','user_id','signalisation_id','timestamps');
 
+<strong style="color:#222;">jwt-auth</strong>
+read more https://jwt-auth.readthedocs.io/en/docs/laravel-installation/
 
 ## License
 
