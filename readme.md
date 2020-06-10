@@ -1,5 +1,11 @@
 <p align="center"><img src="https://res.cloudinary.com/dtfbvvkyp/image/upload/v1566331377/laravel-logolockup-cmyk-red.svg" width="400"></p>
 
+## License
+
+The Laravel framework is open-source software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+<h1>gestion de signal</h1>
+
 ## Database Schema
 
 <strong>Users</strong>('user_id','name','email','email_verified_at','password','role','rememberToken','timestamps');
@@ -22,8 +28,12 @@
 
 ## jwt-auth
 
-<strong>read more</strong> https://jwt-auth.readthedocs.io/en/docs/laravel-installation/
+<strong>Read more</strong> https://jwt-auth.readthedocs.io/en/docs/laravel-installation/
 
-## License
+## Postman
 
-The Laravel framework is open-source software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+<strong>The Collaboration Platform for API Development</strong>
+
+<b>Simplify each step of building an API and streamline collaboration so you can create better APIs—faster.</b>
+
+<strong>Read more</strong> https://www.postman.com/
