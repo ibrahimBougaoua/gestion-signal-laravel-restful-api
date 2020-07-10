@@ -30,6 +30,7 @@ Route::group([
     Route::post('logout', 'AuthController@logout');
     Route::post('refresh', 'AuthController@refresh');
     Route::post('me', 'AuthController@me');
+    Route::get('fetch', 'AuthController@getAllUsers');
     
     // equipe route
     Route::get('equipe', 'EquipesController@index');
@@ -86,5 +87,21 @@ Route::group([
     Route::post('image', 'ImagesController@store');
     Route::put('image/{id}', 'ImagesController@update');
     Route::delete('image/{id}', 'ImagesController@destroy');
+
+    // Users route
+    Route::get('user', 'UsersController@index');
+    Route::get('user/{id}', 'UsersController@show');
+    Route::get('showlistchef', 'UsersController@showListChef');
+    Route::post('user', 'UsersController@store');
+    Route::put('user/{id}', 'UsersController@update');
+    Route::delete('user/{id}', 'UsersController@destroy');
+
+    // Messages route
+    Route::get('message', 'MessagesController@index');
+    Route::get('message/{id}', 'MessagesController@show');
+    Route::get('messages/{id}', 'MessagesController@showMessage');
+    Route::post('message', 'MessagesController@store');
+    Route::put('message/{id}', 'MessagesController@update');
+    Route::delete('message/{id}', 'MessagesController@destroy');
 
 });

@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Evaluer;
+use App\User;
 
-class EvaluersController extends Controller
+class UsersController extends Controller
 {
+    
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +15,7 @@ class EvaluersController extends Controller
      */
     public function index()
     {
-        return Evaluer::all();
+        return User::all();
     }
 
     /**
@@ -35,8 +36,8 @@ class EvaluersController extends Controller
      */
     public function store(Request $request)
     {
-        $equipe = Evaluer::create($request->all());
-        return response()->json($equipe, 201);
+        $User = User::create($request->all());
+        return response()->json($User, 201);
     }
 
     /**
@@ -47,7 +48,18 @@ class EvaluersController extends Controller
      */
     public function show($id)
     {
-        return Evaluer::where('intervention_id', $id)->first();
+        return User::where('id', $id)->first();
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function showListChef()
+    {
+        return User::where([['role' ,'<>', 'prof']])->orWhere([['role','<>', 'etudiant']])->get();
     }
 
     /**
@@ -70,7 +82,7 @@ class EvaluersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        return Evaluer::where('intervention_id', $id)->update($request->all());
+        return User::where('id', $id)->update($request->all());
     }
 
     /**
@@ -81,8 +93,7 @@ class EvaluersController extends Controller
      */
     public function destroy($id)
     {
-        
-        $equipe = Evaluer::where('intervention_id', $id)->delete();
+        $User = User::where('id', $id)->delete();
         return 204;
     }
 }

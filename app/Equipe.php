@@ -13,6 +13,6 @@ class Equipe extends Model
      * @var array
      */
     protected $fillable = [
-        'd_f_equipe','mail','telephone'
+        'd_f_equipe','mail','telephone','chef_equipe'
     ];
 }

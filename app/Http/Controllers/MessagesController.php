@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Evaluer;
+use Illuminate\Support\Facades\Auth;
+use App\Messages;
 
-class EvaluersController extends Controller
+class MessagesController extends Controller
 {
+    
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +16,7 @@ class EvaluersController extends Controller
      */
     public function index()
     {
-        return Evaluer::all();
+        return Messages::all();
     }
 
     /**
@@ -35,8 +37,8 @@ class EvaluersController extends Controller
      */
     public function store(Request $request)
     {
-        $equipe = Evaluer::create($request->all());
-        return response()->json($equipe, 201);
+        $messages = Messages::create($request->all());
+        return response()->json($messages, 201);
     }
 
     /**
@@ -47,7 +49,19 @@ class EvaluersController extends Controller
      */
     public function show($id)
     {
-        return Evaluer::where('intervention_id', $id)->first();
+        return Messages::where('id', $id)->first();
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function showMessage($id) // message(7,6) or message(6,7)
+    {
+    	print_r(Auth::id());
+        return Messages::where([['send_user_id', '7'],['catch_user_id', '6']])->orWhere([['send_user_id', '6'],['catch_user_id', '7']])->get();
     }
 
     /**
@@ -70,7 +84,7 @@ class EvaluersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        return Evaluer::where('intervention_id', $id)->update($request->all());
+        return Messages::where('id', $id)->update($request->all());
     }
 
     /**
@@ -82,7 +96,7 @@ class EvaluersController extends Controller
     public function destroy($id)
     {
         
-        $equipe = Evaluer::where('intervention_id', $id)->delete();
+        $messages = Messages::where('id', $id)->delete();
         return 204;
     }
 }

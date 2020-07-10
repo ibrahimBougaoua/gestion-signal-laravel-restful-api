@@ -23,13 +23,21 @@ class AuthController extends Controller
 
     public function register()
     {
-    	User::create([
-    		'name' => request('name'),
+        User::create([
+            'name' => request('name'),
             'email' => request('email'),
-    		'password' => Hash::make(request('password')),
+            'password' => Hash::make(request('password')),
+            'telephone' => request('telephone'),
+            'sexe' => request('sexe'),
             'role' => request('role')
-    	]);
-    	return $this->login(request());
+        ]);
+        return $this->login(request());
+    }
+
+    public function getAllUsers()
+    {
+        print_r(User::where('id','!=',Auth::user()->id)->get());
+        return User::where('id','!=',Auth::user()->id)->get();
     }
 
     /**

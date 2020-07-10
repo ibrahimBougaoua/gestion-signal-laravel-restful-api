@@ -47,7 +47,7 @@ class MembresController extends Controller
      */
     public function show($id)
     {
-        return Membre::where('user_id', $id)->first();
+        return Membre::where('equipe_id', $id)->first();
     }
 
     /**
