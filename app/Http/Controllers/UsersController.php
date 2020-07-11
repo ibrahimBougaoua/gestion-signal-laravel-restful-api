@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\User;
 
 class UsersController extends Controller
@@ -60,6 +61,31 @@ class UsersController extends Controller
     public function showListChef()
     {
         return User::where([['role' ,'<>', 'prof']])->orWhere([['role','<>', 'etudiant']])->get();
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function userCount()
+    {
+        return User::count();
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function userRoleDashboard()
+    {
+        return User::select('role',DB::raw('count(*) as total'))
+               ->groupBy('role')
+               ->pluck('total','role')
+               ->all();
     }
 
     /**

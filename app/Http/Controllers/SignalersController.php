@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Signaler;
+use App\Signalisation;
 
 class SignalersController extends Controller
 {
@@ -48,6 +50,47 @@ class SignalersController extends Controller
     public function show($id)
     {
         return Signaler::where('user_id', $id)->first();
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function signalerCount($id)
+    {
+        return Signaler::where('user_id', $id)->count();
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function SignalisationDashboard()
+    {
+        return Signaler::join('signalisations','signalisations.id','=','signalers.signalisation_id')
+               ->select('id',DB::raw('count(*) as total'))
+               ->groupBy('id')
+               ->pluck('total','id')
+               ->all();
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function userSignalisationDashboard()
+    {
+        return Signaler::where('user_id', '7')
+               ->select('user_id',DB::raw('count(*) as total'))
+               ->groupBy('user_id')
+               ->pluck('total','user_id')
+               ->all();
     }
 
     /**

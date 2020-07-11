@@ -51,6 +51,17 @@ class SignalisationsController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function signalisationCount()
+    {
+        return Signalisation::count();
+    }
+
+    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id

@@ -35,6 +35,8 @@ Route::group([
     // equipe route
     Route::get('equipe', 'EquipesController@index');
     Route::get('equipe/{id}', 'EquipesController@show');
+    Route::get('equipecount', 'EquipesController@equipeCount');
+    Route::get('equipedashboard', 'EquipesController@equipeDashboard');
     Route::post('equipe', 'EquipesController@store');
     Route::put('equipe/{id}', 'EquipesController@update');
     Route::delete('equipe/{id}', 'EquipesController@destroy');
@@ -70,6 +72,9 @@ Route::group([
     // Signaler route
     Route::get('signaler', 'SignalersController@index');
     Route::get('signaler/{id}', 'SignalersController@show');
+    Route::get('signalercount/{id}', 'SignalersController@signalerCount');
+    Route::get('signalisationdashboard', 'SignalersController@SignalisationDashboard');
+    Route::get('usersignalisationdashboard', 'SignalersController@userSignalisationDashboard');
     Route::post('signaler', 'SignalersController@store');
     Route::put('signaler/{id}', 'SignalersController@update');
     Route::delete('signaler/{id}', 'SignalersController@destroy');
@@ -77,6 +82,7 @@ Route::group([
     // Signalisation route
     Route::get('signalisation', 'SignalisationsController@index');
     Route::get('signalisation/{id}', 'SignalisationsController@show');
+    Route::get('signalisationcount', 'SignalisationsController@signalisationCount');
     Route::post('signalisation', 'SignalisationsController@store');
     Route::put('signalisation/{id}', 'SignalisationsController@update');
     Route::delete('signalisation/{id}', 'SignalisationsController@destroy');
@@ -92,6 +98,8 @@ Route::group([
     Route::get('user', 'UsersController@index');
     Route::get('user/{id}', 'UsersController@show');
     Route::get('showlistchef', 'UsersController@showListChef');
+    Route::get('usercount', 'UsersController@userCount');
+    Route::get('userroledashboard', 'UsersController@userRoleDashboard');
     Route::post('user', 'UsersController@store');
     Route::put('user/{id}', 'UsersController@update');
     Route::delete('user/{id}', 'UsersController@destroy');

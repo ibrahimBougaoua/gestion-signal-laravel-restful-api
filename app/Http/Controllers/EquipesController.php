@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Equipe;
+use App\Membre;
 
 class EquipesController extends Controller
 {
@@ -48,6 +50,32 @@ class EquipesController extends Controller
     public function show($id)
     {
         return Equipe::find($id);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function equipeCount()
+    {
+        return Equipe::count();
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function equipeDashboard()
+    {
+        return Equipe::join('membres','membres.equipe_id','=','equipes.id')
+               ->select('d_f_equipe',DB::raw('count(*) as total'))
+               ->groupBy('d_f_equipe')
+               ->pluck('total','d_f_equipe')
+               ->all();
     }
 
     /**
