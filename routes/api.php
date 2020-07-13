@@ -37,6 +37,7 @@ Route::group([
     Route::get('equipe/{id}', 'EquipesController@show');
     Route::get('equipecount', 'EquipesController@equipeCount');
     Route::get('equipemembre/{id}', 'EquipesController@equipeMembre');
+    Route::get('equipemembrebyid/{id}', 'EquipesController@equipeMembreById');
     Route::get('equipedashboard', 'EquipesController@equipeDashboard');
     Route::post('equipe', 'EquipesController@store');
     Route::put('equipe/{id}', 'EquipesController@update');
@@ -45,7 +46,7 @@ Route::group([
     // Evaluer route
     Route::get('evaluer', 'EvaluersController@index');
     Route::get('evaluer/{id}', 'EvaluersController@show');
-    Route::get('evaluer/{id}', 'EvaluersController@evaluer');
+    Route::get('ifevaluer/{id}', 'EvaluersController@ifEvaluer');
     Route::get('chefintervention', 'EvaluersController@chefIntervention');
     Route::post('evaluer', 'EvaluersController@store');
     Route::put('evaluer/{id}', 'EvaluersController@update');
@@ -102,6 +103,7 @@ Route::group([
     Route::get('user/{id}', 'UsersController@show');
     Route::get('showlistchef', 'UsersController@showListChef');
     Route::get('usercount', 'UsersController@userCount');
+    Route::get('showuerbyrole/{role}', 'UsersController@showUserByRole');
     Route::get('userroledashboard', 'UsersController@userRoleDashboard');
     Route::post('user', 'UsersController@store');
     Route::put('user/{id}', 'UsersController@update');

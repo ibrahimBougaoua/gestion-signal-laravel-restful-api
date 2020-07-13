@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Evaluer;
 
 class EvaluersController extends Controller
@@ -56,10 +57,9 @@ class EvaluersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function evaluer($id) // message(7,6) or message(6,7)
+    public function ifEvaluer($id) // message(7,6) or message(6,7)
     {
-        print_r(Auth::id());
-        return Messages::where([['user_id', '19'],['intervention_id', $id]])->get();
+        return Evaluer::where([['user_id', '19'],['intervention_id', $id]])->get();
     }
 
     /**

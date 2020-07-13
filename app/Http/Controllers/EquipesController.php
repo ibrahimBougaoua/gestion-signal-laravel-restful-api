@@ -90,6 +90,23 @@ class EquipesController extends Controller
         return Equipe::
                join('membres','membres.equipe_id','=','equipes.id')
                ->join('users','users.id','=','user_id')
+               ->select('users.id','users.name','users.email','users.telephone','users.sexe','users.role','users.created_at')
+               ->where('equipe_id','=',$id)->get()
+               ->all();
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function equipeMembreById($id)
+    {
+        ///return Equipe::where('equipe_id', '1')->
+        return Equipe::
+               join('membres','membres.equipe_id','=','equipes.id')
+               ->join('users','users.id','=','user_id')
                ->select('users.id','users.name','users.email','users.telephone','users.sexe','users.created_at')
                ->where('equipe_id','=',$id)->get()
                ->all();

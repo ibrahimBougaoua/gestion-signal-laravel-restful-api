@@ -58,6 +58,17 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    public function showUserByRole($role)
+    {
+        return User::where('role', $role)->get();
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function showListChef()
     {
         return User::where([['role' ,'<>', 'prof']])->orWhere([['role','<>', 'etudiant']])->get();
