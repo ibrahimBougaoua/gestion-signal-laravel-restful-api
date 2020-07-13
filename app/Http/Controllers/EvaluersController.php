@@ -51,6 +51,30 @@ class EvaluersController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function evaluer($id) // message(7,6) or message(6,7)
+    {
+        print_r(Auth::id());
+        return Messages::where([['user_id', '19'],['intervention_id', $id]])->get();
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function chefIntervention()
+    {
+        return Evaluer::join('interventions','interventions.id','=','evaluers.intervention_id')->join('signalisations','signalisations.id','=','signalisation_id')
+               ->get();
+    }
+
+    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
