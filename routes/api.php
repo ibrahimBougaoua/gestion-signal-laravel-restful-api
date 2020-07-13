@@ -36,6 +36,7 @@ Route::group([
     Route::get('equipe', 'EquipesController@index');
     Route::get('equipe/{id}', 'EquipesController@show');
     Route::get('equipecount', 'EquipesController@equipeCount');
+    Route::get('equipemembre/{id}', 'EquipesController@equipeMembre');
     Route::get('equipedashboard', 'EquipesController@equipeDashboard');
     Route::post('equipe', 'EquipesController@store');
     Route::put('equipe/{id}', 'EquipesController@update');
