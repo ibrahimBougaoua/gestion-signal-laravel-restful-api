@@ -117,4 +117,11 @@ Route::group([
     Route::put('message/{id}', 'MessagesController@update');
     Route::delete('message/{id}', 'MessagesController@destroy');
 
+    // Comments route
+    Route::get('comment', 'CommentsController@index');
+    Route::get('comment/{id}', 'CommentsController@show');
+    Route::post('comment', 'CommentsController@store');
+    Route::put('comment/{id}', 'CommentsController@update');
+    Route::delete('comment/{id}', 'CommentsController@destroy');
+
 });
