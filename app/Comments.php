@@ -12,6 +12,6 @@ class Comments extends Model
      * @var array
      */
     protected $fillable = [
-        'reply_id','user_id','name','mail','comment'
+        'reply_id','user_id','signalisation_id','name','mail','comment'
     ];
 }

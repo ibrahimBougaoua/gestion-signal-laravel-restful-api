@@ -38,7 +38,7 @@ class CommentsController extends Controller
     public function store(Request $request)
     {
         $comments = Comments::create($request->all());
-        return response()->json($images, 201);
+        return response()->json($comments, 201);
     }
 
     /**
@@ -47,9 +47,9 @@ class CommentsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($signalisation_id)
     {
-        return Comments::where('id', $id)->first();
+        return Comments::where('signalisation_id', $signalisation_id)->get();
     }
 
     /**
