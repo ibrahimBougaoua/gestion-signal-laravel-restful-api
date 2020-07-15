@@ -40,7 +40,7 @@ class CommentsController extends Controller
         $comments = Comments::create($request->all());
         return response()->json($comments, 201);
     }
-
+    
     /**
      * Display the specified resource.
      *
