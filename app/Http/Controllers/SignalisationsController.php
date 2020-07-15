@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Signalisation;
+use App\Signaler;
 use App\Comments;
 
 class SignalisationsController extends Controller
@@ -50,6 +51,17 @@ class SignalisationsController extends Controller
     public function show($id)
     {
         return Signalisation::where('id', $id)->first();
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function allSignalisationByUserId($user_id)
+    {
+        return Signalisation::join('signalers','signalers.signalisation_id','=','signalisations.id')->where('user_id',$user_id)->get();
     }
 
     /**

@@ -89,6 +89,7 @@ Route::group([
     Route::get('signalisationcount', 'SignalisationsController@signalisationCount');
     Route::get('signalisationcommentsdashboard', 'SignalisationsController@SignalisationCommentsDashboard');
     Route::get('signalisationetatavancementdashboard', 'SignalisationsController@SignalisationEtatAvancementDashboard');
+    Route::get('allsignalisationbyuserid/{id}', 'SignalisationsController@allSignalisationByUserId');
     Route::post('signalisation', 'SignalisationsController@store');
     Route::put('signalisation/{id}', 'SignalisationsController@update');
     Route::delete('signalisation/{id}', 'SignalisationsController@destroy');
