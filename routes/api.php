@@ -87,6 +87,8 @@ Route::group([
     Route::get('signalisation', 'SignalisationsController@index');
     Route::get('signalisation/{id}', 'SignalisationsController@show');
     Route::get('signalisationcount', 'SignalisationsController@signalisationCount');
+    Route::get('signalisationcommentsdashboard', 'SignalisationsController@SignalisationCommentsDashboard');
+    Route::get('signalisationetatavancementdashboard', 'SignalisationsController@SignalisationEtatAvancementDashboard');
     Route::post('signalisation', 'SignalisationsController@store');
     Route::put('signalisation/{id}', 'SignalisationsController@update');
     Route::delete('signalisation/{id}', 'SignalisationsController@destroy');
@@ -103,6 +105,7 @@ Route::group([
     Route::get('user/{id}', 'UsersController@show');
     Route::get('showlistchef', 'UsersController@showListChef');
     Route::get('usercount', 'UsersController@userCount');
+    Route::get('usercountbyrole/{role}', 'UsersController@userCountByRole');
     Route::get('showuerbyrole/{role}', 'UsersController@showUserByRole');
     Route::get('userroledashboard', 'UsersController@userRoleDashboard');
     Route::post('user', 'UsersController@store');
@@ -120,6 +123,7 @@ Route::group([
     // Comments route
     Route::get('comment', 'CommentsController@index');
     Route::get('comment/{id}', 'CommentsController@show');
+    Route::get('commentscountdashboard/{id}', 'CommentsController@CommentsCountDashboard');
     Route::post('comment', 'CommentsController@store');
     Route::put('comment/{id}', 'CommentsController@update');
     Route::delete('comment/{id}', 'CommentsController@destroy');

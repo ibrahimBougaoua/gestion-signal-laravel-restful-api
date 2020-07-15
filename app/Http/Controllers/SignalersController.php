@@ -63,6 +63,7 @@ class SignalersController extends Controller
         return Signaler::where('user_id', $id)->count();
     }
 
+
     /**
      * Display the specified resource.
      *
@@ -71,11 +72,12 @@ class SignalersController extends Controller
      */
     public function SignalisationDashboard()
     {
-        return Signaler::join('signalisations','signalisations.id','=','signalers.signalisation_id')
-               ->select('id',DB::raw('count(*) as total'))
-               ->groupBy('id')
-               ->pluck('total','id')
+        $data = Signaler::join('signalisations','signalisations.id','=','signalers.signalisation_id')
+               ->select('nature',DB::raw('count(*) as total'))
+               ->groupBy('nature')
+               ->pluck('total','nature')
                ->all();
+        return $data;
     }
 
     /**

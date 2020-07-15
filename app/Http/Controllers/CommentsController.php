@@ -40,7 +40,7 @@ class CommentsController extends Controller
         $comments = Comments::create($request->all());
         return response()->json($comments, 201);
     }
-    
+
     /**
      * Display the specified resource.
      *
@@ -50,6 +50,17 @@ class CommentsController extends Controller
     public function show($signalisation_id)
     {
         return Comments::where('signalisation_id', $signalisation_id)->get();
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function CommentsCountDashboard($user_id)
+    {
+        return Comments::where('user_id', $user_id)->count();
     }
 
     /**

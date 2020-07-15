@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Signalisation;
+use App\Comments;
 
 class SignalisationsController extends Controller
 {
@@ -49,6 +51,39 @@ class SignalisationsController extends Controller
     {
         return Signalisation::where('id', $id)->first();
     }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function SignalisationCommentsDashboard()
+    {
+        $data = Signalisation::join('comments','comments.signalisation_id','=','signalisations.id')
+               ->select('cause',DB::raw('count(*) as total'))
+               ->groupBy('cause')
+               ->pluck('total','cause')
+               ->all();
+        return $data;
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function SignalisationEtatAvancementDashboard()
+    {
+        $data = Signalisation::join('interventions','interventions.signalisation_id','=','signalisations.id')
+               ->select('etat_avancement',DB::raw('count(*) as total'))
+               ->groupBy('etat_avancement')
+               ->pluck('total','etat_avancement')
+               ->all();
+        return $data;
+    }
+
 
     /**
      * Display the specified resource.
