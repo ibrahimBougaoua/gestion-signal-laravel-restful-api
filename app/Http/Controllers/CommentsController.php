@@ -47,9 +47,20 @@ class CommentsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($signalisation_id)
+    public function show($comment_id)
     {
-        return Comments::where('signalisation_id', $signalisation_id)->get();
+        return Comments::where('id', $comment_id)->first();
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function getAllComments($user_id)
+    {
+        return Comments::where('user_id', $user_id)->get();
     }
 
     /**

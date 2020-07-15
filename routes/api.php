@@ -123,7 +123,9 @@ Route::group([
 
     // Comments route
     Route::get('comment', 'CommentsController@index');
+    Route::put('comment/{id}', 'CommentsController@update');
     Route::get('comment/{id}', 'CommentsController@show');
+    Route::get('getallcomments/{id}', 'CommentsController@getAllComments');
     Route::get('commentscountdashboard/{id}', 'CommentsController@CommentsCountDashboard');
     Route::post('comment', 'CommentsController@store');
     Route::put('comment/{id}', 'CommentsController@update');
