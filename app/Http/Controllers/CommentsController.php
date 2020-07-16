@@ -58,9 +58,20 @@ class CommentsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function getAllComments()
+    public function getAllCommentsCount()
     {
         return Comments::count();
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function getAllComments($user_id)
+    {
+        return Comments::where('user_id','=',$user_id)->get();
     }
 
     /**
