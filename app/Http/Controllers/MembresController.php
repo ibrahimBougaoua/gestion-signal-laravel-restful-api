@@ -51,6 +51,18 @@ class MembresController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function membreCountDashboard($user_id)
+    {
+        ///return Equipe::where('equipe_id', '1')->
+        return Membre::where('user_id', $user_id)->get()->join('membres','membres.equipe_id','=','equipe_id')->get()->count() - 1;
+    }
+
+    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id

@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Intervention;
+use App\Evaluer;
 
 class InterventionsController extends Controller
 {
@@ -48,6 +50,18 @@ class InterventionsController extends Controller
     public function show($id)
     {
         return Intervention::where('id', $id)->first();
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function interventionCountDashbordById($chef_id)
+    {
+        return Evaluer::join('interventions','interventions.id','=','evaluers.intervention_id')->join('signalisations','signalisations.id','=','signalisation_id')
+               ->count();
     }
 
     /**

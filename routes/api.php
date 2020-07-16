@@ -63,6 +63,8 @@ Route::group([
     // Intervention route
     Route::get('intervention', 'InterventionsController@index');
     Route::get('intervention/{id}', 'InterventionsController@show');
+    Route::get('interventioncountdashbordbyid/{id}', 'InterventionsController@interventionCountDashbordById');
+
     Route::post('intervention', 'InterventionsController@store');
     Route::put('intervention/{id}', 'InterventionsController@update');
     Route::delete('intervention/{id}', 'InterventionsController@destroy');
@@ -70,6 +72,7 @@ Route::group([
     // Membre route
     Route::get('membre', 'MembresController@index');
     Route::get('membre/{id}', 'MembresController@show');
+    Route::get('membrecountdashboard/{id}', 'MembresController@membreCountDashboard');
     Route::post('membre', 'MembresController@store');
     Route::put('membre/{id}', 'MembresController@update');
     Route::delete('membre/{id}', 'MembresController@destroy');

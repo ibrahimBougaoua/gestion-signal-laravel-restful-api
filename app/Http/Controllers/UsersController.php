@@ -82,7 +82,7 @@ class UsersController extends Controller
      */
     public function showListChef()
     {
-        return User::where([['role' ,'<>', 'prof']])->orWhere([['role','<>', 'etudiant']])->get();
+        return User::where([['role' ,'=', 'chef']])->get();
     }
 
     /**
