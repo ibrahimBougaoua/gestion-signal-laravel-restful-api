@@ -49,7 +49,10 @@ class EquipesController extends Controller
      */
     public function show($id)
     {
-        return Equipe::find($id);
+        return Equipe::where('equipes.id','=',$id)
+               ->join('users','users.id','=','equipes.chef_equipe')
+               ->select('equipes.id','equipes.d_f_equipe','equipes.mail','equipes.telephone','equipes.created_at','users.name')
+               ->first();
     }
 
     /**
