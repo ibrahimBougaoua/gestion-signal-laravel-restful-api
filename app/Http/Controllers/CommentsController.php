@@ -58,6 +58,17 @@ class CommentsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    public function getAllSignalisationComments($signalisation_id)
+    {
+        return Comments::where('signalisation_id', $signalisation_id)->get();
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function getAllCommentsCount()
     {
         return Comments::count();
