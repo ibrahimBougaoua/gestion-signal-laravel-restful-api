@@ -59,6 +59,17 @@ class SignalisationsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    public function allSignalerCount()
+    {
+        return Signalisation::count();
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function allSignalisationByUserId($user_id)
     {
         return Signalisation::join('signalers','signalers.signalisation_id','=','signalisations.id')->where('user_id',$user_id)->get();

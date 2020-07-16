@@ -55,6 +55,7 @@ Route::group([
     // Informer route
     Route::get('informer', 'InformersController@index');
     Route::get('informer/{id}', 'InformersController@show');
+    Route::get('ifinformer/{id}', 'InformersController@ifInformer');
     Route::post('informer', 'InformersController@store');
     Route::put('informer/{id}', 'InformersController@update');
     Route::delete('informer/{id}', 'InformersController@destroy');
@@ -89,6 +90,7 @@ Route::group([
     Route::get('signalisationcount', 'SignalisationsController@signalisationCount');
     Route::get('signalisationcommentsdashboard', 'SignalisationsController@SignalisationCommentsDashboard');
     Route::get('signalisationetatavancementdashboard', 'SignalisationsController@SignalisationEtatAvancementDashboard');
+    Route::get('allsignalercount', 'SignalisationsController@allSignalerCount');
     Route::get('allsignalisationbyuserid/{id}', 'SignalisationsController@allSignalisationByUserId');
     Route::post('signalisation', 'SignalisationsController@store');
     Route::put('signalisation/{id}', 'SignalisationsController@update');
@@ -125,7 +127,7 @@ Route::group([
     Route::get('comment', 'CommentsController@index');
     Route::put('comment/{id}', 'CommentsController@update');
     Route::get('comment/{id}', 'CommentsController@show');
-    Route::get('getallcomments/{id}', 'CommentsController@getAllComments');
+    Route::get('allcomments', 'CommentsController@getAllComments');
     Route::get('commentscountdashboard/{id}', 'CommentsController@CommentsCountDashboard');
     Route::post('comment', 'CommentsController@store');
     Route::put('comment/{id}', 'CommentsController@update');

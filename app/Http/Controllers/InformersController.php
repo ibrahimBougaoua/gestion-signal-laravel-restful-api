@@ -51,6 +51,17 @@ class InformersController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function ifInformer($id) // message(7,6) or message(6,7)
+    { // gest_id == user_id
+        return Informer::where([['gest_id', '7'],['signalisation_id', $id]])->join('users','users.id','=','informers.gest_id')->first();
+    }
+
+    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id

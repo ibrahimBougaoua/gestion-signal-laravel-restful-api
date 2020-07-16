@@ -58,9 +58,9 @@ class CommentsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function getAllComments($user_id)
+    public function getAllComments()
     {
-        return Comments::where('user_id', $user_id)->get();
+        return Comments::count();
     }
 
     /**
