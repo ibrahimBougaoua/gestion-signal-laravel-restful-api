@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Hash;
 class AuthController extends Controller
 {
 
+    protected $messages = array();
+
     /**
      * Create a new AuthController instance.
      *
@@ -23,21 +25,24 @@ class AuthController extends Controller
 
     public function register()
     {
-        User::create([
+      if (User::where('email','=',request('email'))->exists())
+        $this->messages['email'] = 'email allready exists !';
+
+      if (User::where('telephone','=',request('telephone'))->exists())
+        $this->messages['telephone'] = 'telephone allready exists !';
+      
+      if (empty($this->messages)) {
+          User::create([
             'name' => request('name'),
             'email' => request('email'),
             'password' => Hash::make(request('password')),
             'telephone' => request('telephone'),
             'sexe' => request('sexe'),
             'role' => request('role')
-        ]);
-        return $this->login(request());
-    }
-
-    public function getAllUsers()
-    {
-        print_r(User::where('id','!=',Auth::user()->id)->get());
-        return User::where('id','!=',Auth::user()->id)->get();
+          ]);
+          return $this->login(request());
+      }
+      return response()->json(['errors' => $this->messages]);
     }
 
     /**
