@@ -42,7 +42,7 @@ class SignalisationsController extends Controller
     public function store(Request $request)
     {
 
-      if (empty(request('desc')) || request('localisation')) || request('lieu')) || empty(request('nature')) || empty(request('cause')) )
+      if (empty(request('desc')) || empty(request('localisation')) || empty(request('lieu')) || empty(request('nature')) || empty(request('cause')) )
         $this->messages['fields'] = 'you can not use a empty value !';
 
       if (empty($this->messages)) {
@@ -160,7 +160,7 @@ class SignalisationsController extends Controller
      */
     public function update(Request $request, $id)
     {
-      if (empty(request('desc')) || request('localisation')) || request('lieu')) || empty(request('nature')) || empty(request('cause')) )
+      if (empty(request('desc')) || empty(request('localisation')) || empty(request('lieu')) || empty(request('nature')) || empty(request('cause')) )
         $this->messages['fields'] = 'you can not use a empty value !';
 
       if (empty($this->messages)) {

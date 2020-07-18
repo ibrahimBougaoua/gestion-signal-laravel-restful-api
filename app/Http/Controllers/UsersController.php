@@ -12,7 +12,7 @@ class UsersController extends Controller
 
     protected $messages = array();
     protected $sexe = ['male','female'];
-    protected $roles = ['prof','etudiant','adminstrator','gestionnaire','equipeintervention'];
+    protected $roles = ['teacher','student','adminstrator','manager','interventionteam'];
 
     /**
      * Display a listing of the resource.
