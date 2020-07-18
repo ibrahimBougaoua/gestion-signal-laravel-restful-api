@@ -9,6 +9,8 @@ use App\Messages;
 class MessagesController extends Controller
 {
     
+    protected $messages = array();
+
     /**
      * Display a listing of the resource.
      *
@@ -37,8 +39,14 @@ class MessagesController extends Controller
      */
     public function store(Request $request)
     {
+      if (empty(request('send_user_id')) || empty(request('catch_user_id')) || empty(request('message')) )
+        $this->messages['fields'] = 'you can not use a empty value !';
+
+      if (empty($this->messages)) {
         $messages = Messages::create($request->all());
         return response()->json($messages, 201);
+      }
+      return response()->json(['errors' => $this->messages]);
     }
 
     /**
@@ -84,7 +92,13 @@ class MessagesController extends Controller
      */
     public function update(Request $request, $id)
     {
+      if ( empty(request('message')) )
+        $this->messages['fields'] = 'you can not use a empty value !';
+
+      if (empty($this->messages)) {
         return Messages::where('id', $id)->update($request->all());
+      }
+      return response()->json(['errors' => $this->messages]);
     }
 
     /**
