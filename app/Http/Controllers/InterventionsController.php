@@ -8,7 +8,10 @@ use App\Intervention;
 use App\Evaluer;
 
 class InterventionsController extends Controller
-{
+{    
+
+    protected $messages = array();
+
     /**
      * Display a listing of the resource.
      *
@@ -37,8 +40,14 @@ class InterventionsController extends Controller
      */
     public function store(Request $request)
     {
+      if (empty(request('signalisation_id')) || empty(request('price')) || empty(request('etat_avancement')) || empty(request('date_debut')) || empty(request('date_fin')) )
+        $this->messages['fields'] = 'you can not use a empty value !';
+    
+      if (empty($this->messages)) {
         $interventions = Intervention::create($request->all());
         return response()->json($interventions, 201);
+      }
+      return response()->json(['errors' => $this->messages]);
     }
 
     /**
@@ -84,7 +93,13 @@ class InterventionsController extends Controller
      */
     public function update(Request $request, $id)
     {
+      if (empty(request('price')) || empty(request('etat_avancement')) || empty(request('date_debut')) || empty(request('date_fin')) )
+        $this->messages['fields'] = 'you can not use a empty value !';
+    
+      if (empty($this->messages)) {
         return Intervention::where('id', $id)->update($request->all());
+      }
+      return response()->json(['errors' => $this->messages]);
     }
 
     /**
