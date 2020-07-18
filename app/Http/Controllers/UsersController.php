@@ -5,10 +5,15 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\User;
+use Illuminate\Support\Facades\Hash;
 
 class UsersController extends Controller
 {
-    
+
+    protected $messages = array();
+    protected $sexe = ['male','female'];
+    protected $roles = ['prof','etudiant','adminstrator','gestionnaire','equipeintervention'];
+
     /**
      * Display a listing of the resource.
      *
@@ -37,8 +42,30 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        $User = User::create($request->all());
+      if (User::where('email','=',request('email'))->exists())
+        $this->messages['email'] = 'email allready exists !';
+
+      if (User::where('telephone','=',request('telephone'))->exists())
+        $this->messages['telephone'] = 'telephone allready exists !';
+
+      if (request('sexe') != $this->sexe[0] && request('sexe') != $this->sexe[1])
+        $this->messages['sexe'] = 'do not play with sexe values please !';
+
+      if (request('role') != $this->roles[0] && request('role') != $this->roles[1] && request('role') != $this->roles[2] && request('role') != $this->roles[3] && request('role') != $this->roles[4])
+        $this->messages['role'] = 'do not play with roles values please !';
+    
+      if (empty($this->messages)) {
+          $User = User::create([
+            'name' => request('name'),
+            'email' => request('email'),
+            'password' => Hash::make(request('password')),
+            'telephone' => request('telephone'),
+            'sexe' => request('sexe'),
+            'role' => request('role')
+          ]);
         return response()->json($User, 201);
+      }
+      return response()->json(['errors' => $this->messages]);
     }
 
     /**
@@ -130,7 +157,23 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        return User::where('id', $id)->update($request->all());
+      if (User::where('email','=',request('email'))->exists())
+        $this->messages['email'] = 'email allready exists !';
+
+      if (User::where('telephone','=',request('telephone'))->exists())
+        $this->messages['telephone'] = 'telephone allready exists !';
+      
+      if (empty($this->messages)) {
+        return User::where('id', $id)->update([
+            'name' => request('name'),
+            'email' => request('email'),
+            'password' => Hash::make(request('password')),
+            'telephone' => request('telephone'),
+            'sexe' => request('sexe'),
+            'role' => request('role')
+          ]);
+      }
+      return response()->json(['errors' => $this->messages]);
     }
 
     /**
