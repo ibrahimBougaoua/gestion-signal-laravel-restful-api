@@ -42,6 +42,9 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
+      if (empty(request('name')) || empty(request('email')) || empty(request('password')) || empty(request('telephone')) || empty(request('sexe')) || empty(request('role')) )
+        $this->messages['fields'] = 'you can not use a empty value !';
+
       if (User::where('email','=',request('email'))->exists())
         $this->messages['email'] = 'email allready exists !';
 
@@ -157,12 +160,21 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
+      if (empty(request('name')) || empty(request('email')) || empty(request('telephone')) || empty(request('sexe')) || empty(request('role')) )
+        $this->messages['fields'] = 'you can not use a empty value !';
+
       if (User::where('email','=',request('email'))->exists())
         $this->messages['email'] = 'email allready exists !';
 
       if (User::where('telephone','=',request('telephone'))->exists())
         $this->messages['telephone'] = 'telephone allready exists !';
-      
+
+      if (request('sexe') != $this->sexe[0] && request('sexe') != $this->sexe[1])
+        $this->messages['sexe'] = 'do not play with sexe values please !';
+
+      if (request('role') != $this->roles[0] && request('role') != $this->roles[1] && request('role') != $this->roles[2] && request('role') != $this->roles[3] && request('role') != $this->roles[4])
+        $this->messages['role'] = 'do not play with roles values please !';
+
       if (empty($this->messages)) {
         return User::where('id', $id)->update([
             'name' => request('name'),
