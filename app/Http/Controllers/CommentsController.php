@@ -37,8 +37,14 @@ class CommentsController extends Controller
      */
     public function store(Request $request)
     {
+      if (empty(request('reply_id')) || empty(request('user_id')) || empty(request('signalisation_id')) || empty(request('name')) || empty(request('mail')) || empty(request('comment')) )
+        $this->messages['fields'] = 'you can not use a empty value !';
+
+      if (empty($this->messages)) {
         $comments = Comments::create($request->all());
         return response()->json($comments, 201);
+      }
+      return response()->json(['errors' => $this->messages]);
     }
 
     /**
@@ -116,7 +122,13 @@ class CommentsController extends Controller
      */
     public function update(Request $request, $id)
     {
+      if (empty(request('reply_id')) || empty(request('user_id')) || empty(request('signalisation_id')) || empty(request('name')) || empty(request('mail')) || empty(request('comment')) )
+        $this->messages['fields'] = 'you can not use a empty value !';
+
+      if (empty($this->messages)) {
         return Comments::where('id', $id)->update($request->all());
+      }
+      return response()->json(['errors' => $this->messages]);
     }
 
     /**
