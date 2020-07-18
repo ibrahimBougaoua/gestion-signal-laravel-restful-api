@@ -9,6 +9,8 @@ use App\Comments;
 class CommentsController extends Controller
 {
 
+    protected $messages = array();
+    
     /**
      * Display a listing of the resource.
      *
