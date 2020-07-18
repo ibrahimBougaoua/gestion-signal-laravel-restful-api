@@ -10,6 +10,9 @@ use App\Comments;
 
 class SignalisationsController extends Controller
 {
+
+    protected $messages = array();
+    
     /**
      * Display a listing of the resource.
      *
