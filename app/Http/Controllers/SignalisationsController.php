@@ -69,6 +69,27 @@ class SignalisationsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    public function searchByValue()
+    {
+      if ( ! empty(request('desc')) )
+             return Signalisation::where('desc','like', request('desc'))->orderBy('id')->get();
+
+      if ( ! empty(request('nature')) )
+             return Signalisation::where('nature','like', request('nature'))->orderBy('id')->get();
+         
+      if ( ! empty(request('cause')) )
+             return Signalisation::where('cause','like', request('cause'))->orderBy('id')->get();
+         
+      if ( ! empty(request('localisation')) )
+             return Signalisation::where('localisation','like', request('localisation'))->orderBy('id')->get();
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function allSignalerCount()
     {
         return Signalisation::count();

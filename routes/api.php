@@ -90,6 +90,7 @@ Route::group([
     // Signalisation route
     Route::get('signalisation', 'SignalisationsController@index');
     Route::get('signalisation/{id}', 'SignalisationsController@show');
+    Route::get('search', 'SignalisationsController@searchByValue');
     Route::get('signalisationcount', 'SignalisationsController@signalisationCount');
     Route::get('signalisationcommentsdashboard', 'SignalisationsController@SignalisationCommentsDashboard');
     Route::get('signalisationetatavancementdashboard', 'SignalisationsController@SignalisationEtatAvancementDashboard');
