@@ -12,7 +12,7 @@ class UsersController extends Controller
 
     protected $messages = array();
     protected $sexe = ['male','female'];
-    protected $roles = ['teacher','student','adminstrator','manager','interventionteam'];
+    protected $roles = ['teacher','student','adminstrator','manager','interventionteam','employee','ats'];
 
     /**
      * Display a listing of the resource.
@@ -21,7 +21,7 @@ class UsersController extends Controller
      */
     public function index()
     {
-        return User::all();
+        return User::where([['id' ,'!=', '28']])->get();
     }
 
     /**
@@ -54,7 +54,7 @@ class UsersController extends Controller
       if (request('sexe') != $this->sexe[0] && request('sexe') != $this->sexe[1])
         $this->messages['sexe'] = 'do not play with sexe values please !';
 
-      if (request('role') != $this->roles[0] && request('role') != $this->roles[1] && request('role') != $this->roles[2] && request('role') != $this->roles[3] && request('role') != $this->roles[4])
+      if (request('role') != $this->roles[0] && request('role') != $this->roles[1] && request('role') != $this->roles[2] && request('role') != $this->roles[3] && request('role') != $this->roles[4] && request('role') != $this->roles[5] && request('role') != $this->roles[6])
         $this->messages['role'] = 'do not play with roles values please !';
     
       if (empty($this->messages)) {
