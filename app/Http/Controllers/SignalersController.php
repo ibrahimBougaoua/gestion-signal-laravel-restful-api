@@ -8,7 +8,10 @@ use App\Signaler;
 use App\Signalisation;
 
 class SignalersController extends Controller
-{
+{    
+
+    protected $messages = array();
+
     /**
      * Display a listing of the resource.
      *
@@ -37,8 +40,17 @@ class SignalersController extends Controller
      */
     public function store(Request $request)
     {
+      if (empty(request('user_id')) || empty(request('signalisation_id')) )
+        $this->messages['fields'] = 'you can not use a empty value !';
+
+      if (Signaler::where('user_id','=',request('user_id'))->exists())
+        $this->messages['user_id'] = 'user allready exists !';
+
+      if (empty($this->messages)) {
         $signaler = Signaler::create($request->all());
         return response()->json($signaler, 201);
+      }
+      return response()->json(['errors' => $this->messages]);
     }
 
     /**
