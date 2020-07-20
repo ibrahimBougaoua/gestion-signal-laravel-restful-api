@@ -7,6 +7,9 @@ use App\Informer;
 
 class InformersController extends Controller
 {
+
+    protected $messages = array();
+    
     /**
      * Display a listing of the resource.
      *
@@ -35,8 +38,17 @@ class InformersController extends Controller
      */
     public function store(Request $request)
     {
+      //if (empty(request('gest_id')) || empty(request('chef_id')) || empty(request('signalisation_id')) )
+      //  $this->messages['fields'] = 'you can not use a empty value !';
+
+      //if (Signaler::where('user_id','=',request('user_id'))->exists())
+      //  $this->messages['user_id'] = 'user allready exists !';
+
+      //if (empty($this->messages)) {
         $informer = Informer::create($request->all());
         return response()->json($informer, 201);
+      //}
+      //return response()->json(['errors' => $this->messages]);
     }
 
     /**
