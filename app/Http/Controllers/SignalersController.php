@@ -43,7 +43,7 @@ class SignalersController extends Controller
       if (empty(request('user_id')) || empty(request('signalisation_id')) )
         $this->messages['fields'] = 'you can not use a empty value !';
 
-      if (Signaler::where('user_id','=',request('user_id'))->exists())
+      if (Signaler::where([['user_id','=',request('user_id')],['signalisation_id','=',request('signalisation_id')]])->exists())
         $this->messages['user_id'] = 'user allready exists !';
 
       if (empty($this->messages)) {

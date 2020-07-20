@@ -8,6 +8,9 @@ use App\Evaluer;
 
 class EvaluersController extends Controller
 {
+
+    protected $messages = array();
+
     /**
      * Display a listing of the resource.
      *
@@ -36,8 +39,17 @@ class EvaluersController extends Controller
      */
     public function store(Request $request)
     {
+      if (empty(request('user_id')) || empty(request('intervention_id')) )
+        $this->messages['fields'] = 'you can not use a empty value !';
+
+      if (Evaluer::where('intervention_id','=',request('intervention_id'))->exists())
+        $this->messages['intervention_id'] = 'intervention allready exists !';
+
+      if (empty($this->messages)) {
         $equipe = Evaluer::create($request->all());
         return response()->json($equipe, 201);
+      }
+      return response()->json(['errors' => $this->messages]);
     }
 
     /**
