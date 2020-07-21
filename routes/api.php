@@ -30,7 +30,6 @@ Route::group([
     Route::post('logout', 'AuthController@logout');
     Route::post('refresh', 'AuthController@refresh');
     Route::post('me', 'AuthController@me');
-    Route::get('fetch', 'AuthController@getAllUsers');
     
     // equipe route
     Route::get('equipe', 'EquipesController@index');
