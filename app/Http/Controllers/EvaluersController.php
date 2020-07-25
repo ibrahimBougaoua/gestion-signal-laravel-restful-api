@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Tymon\JWTAuth\Contracts\JWTSubject;
+use JWTAuth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Evaluer;
@@ -71,7 +73,7 @@ class EvaluersController extends Controller
      */
     public function ifEvaluer($id) // message(7,6) or message(6,7)
     {
-        return Evaluer::where([['user_id', '18'],['intervention_id', $id]])->join('users','users.id','=','evaluers.user_id')->first();
+        return Evaluer::where([['user_id', JWTAuth::parseToken()->toUser()->id],['intervention_id', $id]])->join('users','users.id','=','evaluers.user_id')->first();
     }
 
     /**

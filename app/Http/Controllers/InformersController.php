@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Tymon\JWTAuth\Contracts\JWTSubject;
+use JWTAuth;
 use Illuminate\Http\Request;
 use App\Informer;
 
@@ -70,7 +72,7 @@ class InformersController extends Controller
      */
     public function ifInformer($id) // message(7,6) or message(6,7)
     { // gest_id == user_id
-        return Informer::where([['gest_id', '7'],['signalisation_id', $id]])->join('users','users.id','=','informers.gest_id')->first();
+        return Informer::where([['gest_id', JWTAuth::parseToken()->toUser()->id],['signalisation_id', $id]])->join('users','users.id','=','informers.gest_id')->first();
     }
 
     /**

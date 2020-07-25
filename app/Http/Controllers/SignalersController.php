@@ -98,7 +98,7 @@ class SignalersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function userSignalisationDashboard()
+    public function userSignalisationDashboard($user_id)
     {
         return Signaler::where('user_id', '7')
                ->select('user_id',DB::raw('count(*) as total'))

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Tymon\JWTAuth\Contracts\JWTSubject;
+use JWTAuth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Messages;
@@ -68,8 +70,7 @@ class MessagesController extends Controller
      */
     public function showMessage($id) // message(7,6) or message(6,7)
     {
-    	print_r(Auth::id());
-        return Messages::where([['send_user_id', '7'],['catch_user_id', '6']])->orWhere([['send_user_id', '6'],['catch_user_id', '7']])->get();
+        return Messages::where([['send_user_id', JWTAuth::parseToken()->toUser()->id],['catch_user_id', $id]])->orWhere([['send_user_id', $id],['catch_user_id', JWTAuth::parseToken()->toUser()->id]])->get();
     }
 
     /**

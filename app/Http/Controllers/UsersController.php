@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Tymon\JWTAuth\Contracts\JWTSubject;
+use JWTAuth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -22,7 +24,7 @@ class UsersController extends Controller
      */
     public function index()
     {
-        return User::where([['id' ,'!=', '28']])->get();
+        return User::where([['id' ,'!=', JWTAuth::parseToken()->toUser()->id]])->get();
     }
 
     /**
@@ -91,7 +93,7 @@ class UsersController extends Controller
      */
     public function showUserByRole($role)
     {
-        return User::where('role', $role)->get();
+        return User::where([['role', $role],['id' ,'!=', JWTAuth::parseToken()->toUser()->id]])->get();
     }
 
     /**

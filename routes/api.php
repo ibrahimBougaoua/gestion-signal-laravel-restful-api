@@ -11,12 +11,12 @@ use Illuminate\Http\Request;
 | routes are loaded by the RouteServiceProvider within a group which
 | is assigned the "api" middleware group. Enjoy building your API!
 |
-*/
+
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-
+*/
 Route::group([
 
     'middleware' => 'api',
@@ -81,7 +81,7 @@ Route::group([
     Route::get('signaler/{id}', 'SignalersController@show');
     Route::get('signalercount/{id}', 'SignalersController@signalerCount');
     Route::get('signalisationdashboard', 'SignalersController@SignalisationDashboard');
-    Route::get('usersignalisationdashboard', 'SignalersController@userSignalisationDashboard');
+    Route::get('usersignalisationdashboard/{id}', 'SignalersController@userSignalisationDashboard');
     Route::post('signaler', 'SignalersController@store');
     Route::put('signaler/{id}', 'SignalersController@update');
     Route::delete('signaler/{id}', 'SignalersController@destroy');
