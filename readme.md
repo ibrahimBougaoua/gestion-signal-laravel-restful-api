@@ -1,72 +1,105 @@
 <p align="center"><img src="https://res.cloudinary.com/dtfbvvkyp/image/upload/v1566331377/laravel-logolockup-cmyk-red.svg" width="400"></p>
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
-
-## About Laravel
-
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
-
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
-
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
-
-## Learning Laravel
-
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[British Software Development](https://www.britishsoftware.co)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- [UserInsights](https://userinsights.com)
-- [Fragrantica](https://www.fragrantica.com)
-- [SOFTonSOFA](https://softonsofa.com/)
-- [User10](https://user10.com)
-- [Soumettre.fr](https://soumettre.fr/)
-- [CodeBrisk](https://codebrisk.com)
-- [1Forge](https://1forge.com)
-- [TECPRESSO](https://tecpresso.co.jp/)
-- [Runtime Converter](http://runtimeconverter.com/)
-- [WebL'Agence](https://weblagence.com/)
-- [Invoice Ninja](https://www.invoiceninja.com)
-- [iMi digital](https://www.imi-digital.de/)
-- [Earthlink](https://www.earthlink.ro/)
-- [Steadfast Collective](https://steadfastcollective.com/)
-- [We Are The Robots Inc.](https://watr.mx/)
-- [Understand.io](https://www.understand.io/)
-- [Abdel Elrafa](https://abdelelrafa.com)
-- [Hyper Host](https://hyper.host)
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+<strong>Read more</strong> https://laravel.com/
 
 ## License
 
 The Laravel framework is open-source software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+<h1>gestion de signal</h1>
+<p align="center"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4zCTcoUa5uQkVhMjLLEBxJnTY7CeZjvagmhn-F-Gv3wFDAHXJ9Q&s" width="400"></p>
+
+## Database Schema
+
+<strong>Users('user_id','name','email','email_verified_at','password','role','rememberToken','timestamps');</strong>
+
+<strong>Signalisation('signalisation_id','desc','localisation','photo','lieu','nature','cause','timestamps');</strong>
+
+<strong>Signalers('user_id','signalisation_id','timestamps');</strong>
+
+<strong>Evaluers('user_id','intervention_id','timestamps');</strong>
+
+<strong>Interventions('id','signalisation_id','price','etat_avancement','date','timestamps');</strong>
+
+<strong>Informers('gest_id','chef_id','signalisation_id','timestamps');</strong>
+
+<strong>Membres('user_id','equipe_id','timestamps');</strong>
+
+<strong>Equipe('equipe_id','d_f_equipe','mail','telephone','timestamps');</strong>
+
+<strong>Images('id','name','size','user_id','signalisation_id','timestamps');</strong>
+
+## jwt-auth
+
+<strong>Read more</strong> https://jwt-auth.readthedocs.io/en/docs/laravel-installation/
+
+## Postman
+
+<strong>The Collaboration Platform for API Development</strong>
+
+<b>Simplify each step of building an API and streamline collaboration so you can create better APIs—faster.</b>
+
+<strong>Read more</strong> https://www.postman.com/
+
+
+
+
+
+
+
+## Route List
+
+<b>command :</b> php artisan route:list
+
+<pre>
++--------+----------+-----------------------------+------+-------------------------------------------------------+--------------+
+| Domain | Method   | URI                         | Name | Action                                                | Middleware   |
++--------+----------+-----------------------------+------+-------------------------------------------------------+--------------+
+|        | GET|HEAD | /                           |      | Closure                                               | web          |
+|        | POST     | api/auth/equipe             |      | App\Http\Controllers\EquipesController@store          | api          |
+|        | GET|HEAD | api/auth/equipe             |      | App\Http\Controllers\EquipesController@index          | api          |
+|        | DELETE   | api/auth/equipe/{id}        |      | App\Http\Controllers\EquipesController@destroy        | api          |
+|        | GET|HEAD | api/auth/equipe/{id}        |      | App\Http\Controllers\EquipesController@show           | api          |
+|        | PUT      | api/auth/equipe/{id}        |      | App\Http\Controllers\EquipesController@update         | api          |
+|        | POST     | api/auth/evaluer            |      | App\Http\Controllers\EvaluersController@store         | api          |
+|        | GET|HEAD | api/auth/evaluer            |      | App\Http\Controllers\EvaluersController@index         | api          |
+|        | DELETE   | api/auth/evaluer/{id}       |      | App\Http\Controllers\EvaluersController@destroy       | api          |
+|        | PUT      | api/auth/evaluer/{id}       |      | App\Http\Controllers\EvaluersController@update        | api          |
+|        | GET|HEAD | api/auth/evaluer/{id}       |      | App\Http\Controllers\EvaluersController@show          | api          |
+|        | POST     | api/auth/image              |      | App\Http\Controllers\ImagesController@store           | api          |
+|        | GET|HEAD | api/auth/image              |      | App\Http\Controllers\ImagesController@index           | api          |
+|        | DELETE   | api/auth/image/{id}         |      | App\Http\Controllers\ImagesController@destroy         | api          |
+|        | GET|HEAD | api/auth/image/{id}         |      | App\Http\Controllers\ImagesController@show            | api          |
+|        | PUT      | api/auth/image/{id}         |      | App\Http\Controllers\ImagesController@update          | api          |
+|        | GET|HEAD | api/auth/informer           |      | App\Http\Controllers\InformersController@index        | api          |
+|        | POST     | api/auth/informer           |      | App\Http\Controllers\InformersController@store        | api          |
+|        | GET|HEAD | api/auth/informer/{id}      |      | App\Http\Controllers\InformersController@show         | api          |
+|        | PUT      | api/auth/informer/{id}      |      | App\Http\Controllers\InformersController@update       | api          |
+|        | DELETE   | api/auth/informer/{id}      |      | App\Http\Controllers\InformersController@destroy      | api          |
+|        | POST     | api/auth/intervention       |      | App\Http\Controllers\InterventionsController@store    | api          |
+|        | GET|HEAD | api/auth/intervention       |      | App\Http\Controllers\InterventionsController@index    | api          |
+|        | GET|HEAD | api/auth/intervention/{id}  |      | App\Http\Controllers\InterventionsController@show     | api          |
+|        | PUT      | api/auth/intervention/{id}  |      | App\Http\Controllers\InterventionsController@update   | api          |
+|        | DELETE   | api/auth/intervention/{id}  |      | App\Http\Controllers\InterventionsController@destroy  | api          |
+|        | POST     | api/auth/login              |      | App\Http\Controllers\AuthController@login             | api          |
+|        | POST     | api/auth/logout             |      | App\Http\Controllers\AuthController@logout            | api,auth:api |
+|        | POST     | api/auth/me                 |      | App\Http\Controllers\AuthController@me                | api,auth:api |
+|        | POST     | api/auth/membre             |      | App\Http\Controllers\MembresController@store          | api          |
+|        | GET|HEAD | api/auth/membre             |      | App\Http\Controllers\MembresController@index          | api          |
+|        | DELETE   | api/auth/membre/{id}        |      | App\Http\Controllers\MembresController@destroy        | api          |
+|        | PUT      | api/auth/membre/{id}        |      | App\Http\Controllers\MembresController@update         | api          |
+|        | GET|HEAD | api/auth/membre/{id}        |      | App\Http\Controllers\MembresController@show           | api          |
+|        | POST     | api/auth/refresh            |      | App\Http\Controllers\AuthController@refresh           | api,auth:api |
+|        | POST     | api/auth/register           |      | App\Http\Controllers\AuthController@register          | api          |
+|        | GET|HEAD | api/auth/signaler           |      | App\Http\Controllers\SignalersController@index        | api          |
+|        | POST     | api/auth/signaler           |      | App\Http\Controllers\SignalersController@store        | api          |
+|        | GET|HEAD | api/auth/signaler/{id}      |      | App\Http\Controllers\SignalersController@show         | api          |
+|        | DELETE   | api/auth/signaler/{id}      |      | App\Http\Controllers\SignalersController@destroy      | api          |
+|        | PUT      | api/auth/signaler/{id}      |      | App\Http\Controllers\SignalersController@update       | api          |
+|        | GET|HEAD | api/auth/signalisation      |      | App\Http\Controllers\SignalisationsController@index   | api          |
+|        | POST     | api/auth/signalisation      |      | App\Http\Controllers\SignalisationsController@store   | api          |
+|        | GET|HEAD | api/auth/signalisation/{id} |      | App\Http\Controllers\SignalisationsController@show    | api          |
+|        | PUT      | api/auth/signalisation/{id} |      | App\Http\Controllers\SignalisationsController@update  | api          |
+|        | DELETE   | api/auth/signalisation/{id} |      | App\Http\Controllers\SignalisationsController@destroy | api          |
++--------+----------+-----------------------------+------+-------------------------------------------------------+--------------+
+</pre>
