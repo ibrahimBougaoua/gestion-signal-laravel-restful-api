@@ -67,17 +67,7 @@
         <div class="flex-center position-ref full-height">
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel
-                </div>
-
-                <div class="links">
-                    <a href="https://laravel.com/docs">Docs</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://blog.laravel.com">Blog</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
+                    <img src="https://camo.githubusercontent.com/b98a01085d972af03a6f20cebe6eac18aca962e0/68747470733a2f2f656e637279707465642d74626e302e677374617469632e636f6d2f696d616765733f713d74626e3a414e6439476351347a4354636f55613575516b56684d6a4c4c4542784a6e54593743655a6a7661676d686e2d462d4776337746444148584a39512673" class="w-100 h-100" />
                 </div>
             </div>
         </div>
