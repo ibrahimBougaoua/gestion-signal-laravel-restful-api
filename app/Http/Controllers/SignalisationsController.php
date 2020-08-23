@@ -46,7 +46,7 @@ class SignalisationsController extends Controller
         $this->messages['fields'] = 'you can not use a empty value !';
 
       if (empty($this->messages)) {
-        Signalisation::create($request->all());
+        $signalisation = Signalisation::create($request->all());
         return response()->json($signalisation, 201);
       }
       return response()->json(['errors' => $this->messages]);
