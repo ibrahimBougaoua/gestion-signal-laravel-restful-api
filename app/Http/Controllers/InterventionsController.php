@@ -69,8 +69,8 @@ class InterventionsController extends Controller
      */
     public function interventionCountDashbordById($chef_id)
     {
-        return Evaluer::join('interventions','interventions.id','=','evaluers.intervention_id')->join('signalisations','signalisations.id','=','signalisation_id')
-               ->count();
+      return response()->json(['data' => Intervention::join('signalisations','signalisations.id','=','signalisation_id')->join('evaluers','evaluers.intervention_id','=','interventions.id')->where('user_id', $chef_id)
+               ->count()]);
     }
 
     /**

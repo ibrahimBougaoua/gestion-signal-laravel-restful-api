@@ -116,7 +116,7 @@ class UsersController extends Controller
      */
     public function userCount()
     {
-        return User::count();
+      return response()->json(['data' => User::count()]);
     }
 
     /**

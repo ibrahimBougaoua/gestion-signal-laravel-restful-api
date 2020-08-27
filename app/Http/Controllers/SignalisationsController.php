@@ -20,7 +20,8 @@ class SignalisationsController extends Controller
      */
     public function index()
     {
-        return Signalisation::all();
+        $signalisations = Signalisation::all();
+        return response()->json(['data' => $signalisations], 201);
     }
 
     /**
