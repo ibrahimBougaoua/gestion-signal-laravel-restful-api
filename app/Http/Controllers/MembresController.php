@@ -60,7 +60,7 @@ class MembresController extends Controller
     {
         if (Membre::where('user_id','=',$user_id)->exists())
             return response()->json(['data' => Membre::where('user_id', $user_id)->get()->join('membres','membres.equipe_id','=','equipe_id')->get()->count() - 1]);
-        return response()->json(['data' => $this->messages]);
+        return response()->json(['data' => 0]);
     }
 
     /**
