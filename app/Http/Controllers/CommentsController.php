@@ -101,7 +101,7 @@ class CommentsController extends Controller
      */
     public function CommentsCountDashboard($user_id)
     {
-        return Comments::where('user_id', $user_id)->count();
+        return response()->json(['data' => Comments::where('user_id', $user_id)->count()]);
     }
 
     /**

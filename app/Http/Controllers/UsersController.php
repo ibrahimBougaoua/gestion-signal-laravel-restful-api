@@ -104,7 +104,7 @@ class UsersController extends Controller
      */
     public function userCountByRole($role)
     {
-        return User::where('role', $role)->count();
+        return response()->json(['data' => User::where('role', $role)->count()]);
     }
 
 

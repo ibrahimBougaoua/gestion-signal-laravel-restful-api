@@ -59,8 +59,8 @@ class MembresController extends Controller
     public function membreCountDashboard($user_id)
     {
         if (Membre::where('user_id','=',$user_id)->exists())
-            return Membre::where('user_id', $user_id)->get()->join('membres','membres.equipe_id','=','equipe_id')->get()->count() - 1;
-        return 0;
+            return response()->json(['data' => Membre::where('user_id', $user_id)->get()->join('membres','membres.equipe_id','=','equipe_id')->get()->count() - 1]);
+        return response()->json(['data' => $this->messages]);
     }
 
     /**
