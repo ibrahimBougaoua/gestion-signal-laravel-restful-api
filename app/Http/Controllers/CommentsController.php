@@ -79,7 +79,7 @@ class CommentsController extends Controller
      */
     public function getAllCommentsCount()
     {
-        return Comments::count();
+        return response()->json(['data' => Comments::count()]);
     }
 
     /**

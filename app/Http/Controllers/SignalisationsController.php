@@ -93,7 +93,7 @@ class SignalisationsController extends Controller
      */
     public function allSignalerCount()
     {
-        return Signalisation::count();
+        return response()->json(['data' => Signalisation::count()]);
     }
 
     /**
