@@ -81,7 +81,7 @@ class EquipesController extends Controller
      */
     public function equipeCount()
     {
-        return Equipe::count();
+        return response()->json(['data' => Equipe::count()]);
     }
 
     /**
