@@ -46,7 +46,7 @@ Route::group([
     Route::get('evaluer', 'EvaluersController@index');
     Route::get('evaluer/{id}', 'EvaluersController@show');
     Route::get('ifevaluer/{id}', 'EvaluersController@ifEvaluer');
-    Route::get('chefintervention', 'EvaluersController@chefIntervention');
+    Route::get('chefintervention/{id}', 'EvaluersController@chefIntervention');
     Route::post('evaluer', 'EvaluersController@store');
     Route::put('evaluer/{id}', 'EvaluersController@update');
     Route::delete('evaluer/{id}', 'EvaluersController@destroy');

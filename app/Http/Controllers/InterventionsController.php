@@ -93,13 +93,7 @@ class InterventionsController extends Controller
      */
     public function update(Request $request, $id)
     {
-      if (empty(request('price')) || empty(request('etat_avancement')) || empty(request('date_debut')) || empty(request('date_fin')) )
-        $this->messages['fields'] = 'you can not use a empty value !';
-    
-      if (empty($this->messages)) {
-        return Intervention::where('id', $id)->update($request->all());
-      }
-      return response()->json(['errors' => $this->messages]);
+        return response()->json(['success' => Intervention::where('id', $id)->update($request->all()),'message' => 'Intervention updated successfully !']);
     }
 
     /**

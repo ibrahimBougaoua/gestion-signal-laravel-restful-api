@@ -82,10 +82,11 @@ class EvaluersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function chefIntervention()
+    public function chefIntervention($id)
     {
-        return Evaluer::join('interventions','interventions.id','=','evaluers.intervention_id')->join('signalisations','signalisations.id','=','signalisation_id')
+        $evaluer = Evaluer::join('interventions','interventions.id','=','evaluers.intervention_id')->join('signalisations','signalisations.id','=','signalisation_id')->where('user_id', $id)
                ->get();
+        return response()->json(['data' => $evaluer], 201);
     }
 
     /**
