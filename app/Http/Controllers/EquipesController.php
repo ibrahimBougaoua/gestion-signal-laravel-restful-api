@@ -107,13 +107,12 @@ class EquipesController extends Controller
      */
     public function equipeMembre($id)
     {
-        ///return Equipe::where('equipe_id', '1')->
-        return Equipe::
+      return response()->json(['data' => Equipe::
                join('membres','membres.equipe_id','=','equipes.id')
                ->join('users','users.id','=','user_id')
                ->select('users.id','users.name','users.email','users.telephone','users.sexe','users.role','users.created_at')
-               ->where('equipe_id','=',$id)->get()
-               ->all();
+               ->where('chef_equipe','=',$id)->get()
+               ->all()]);
     }
 
     /**
