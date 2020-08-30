@@ -94,7 +94,7 @@ class UsersController extends Controller
     public function ListOfManagersAndChefs()
     {
         //return response()->json(['data' => User::where([['role', $role],['id' ,'!=', JWTAuth::parseToken()->toUser()->id]])->get()]);
-        return response()->json(['data' => User::where(['role', 'manager'])->orWhere(['role' ,'interventionteam'])->get()]);
+        return response()->json(['data' => User::where('role', 'manager')->orWhere('role' ,'interventionteam')->get()]);
     }
 
     /**

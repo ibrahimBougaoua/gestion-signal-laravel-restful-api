@@ -46,7 +46,7 @@ class MessagesController extends Controller
 
       if (empty($this->messages)) {
         $messages = Messages::create($request->all());
-        return response()->json($messages, 201);
+        return response()->json(['success' => $messages], 201);
       }
       return response()->json(['errors' => $this->messages]);
     }
