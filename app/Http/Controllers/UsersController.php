@@ -91,6 +91,18 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    public function ListOfManagersAndChefs()
+    {
+        //return response()->json(['data' => User::where([['role', $role],['id' ,'!=', JWTAuth::parseToken()->toUser()->id]])->get()]);
+        return response()->json(['data' => User::where([['role', 'manager'],['role' ,'interventionteam']])->get()]);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function showUserByRole($role)
     {
         //return response()->json(['data' => User::where([['role', $role],['id' ,'!=', JWTAuth::parseToken()->toUser()->id]])->get()]);

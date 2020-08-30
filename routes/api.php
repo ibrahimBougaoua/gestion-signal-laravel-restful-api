@@ -109,6 +109,7 @@ Route::group([
     // Users route
     Route::get('user', 'UsersController@index');
     Route::get('user/{id}', 'UsersController@show');
+    Route::get('listOfManagersAndChefs', 'UsersController@ListOfManagersAndChefs');
     Route::get('usercount', 'UsersController@userCount');
     Route::get('usercountbyrole/{role}', 'UsersController@userCountByRole');
     Route::get('showuerbyrole/{role}', 'UsersController@showUserByRole');
