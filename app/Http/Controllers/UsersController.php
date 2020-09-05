@@ -166,6 +166,7 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
+        /*
       if (empty(request('name')) || empty(request('email')) || empty(request('telephone')) || empty(request('sexe')) || empty(request('role')) )
         $this->messages['fields'] = 'you can not use a empty value !';
 
@@ -180,16 +181,17 @@ class UsersController extends Controller
 
       if (request('role') != $this->roles[0] && request('role') != $this->roles[1] && request('role') != $this->roles[2] && request('role') != $this->roles[3] && request('role') != $this->roles[4])
         $this->messages['role'] = 'do not play with roles values please !';
-
+*/
       if (empty($this->messages)) {
-        return User::where('id', $id)->update([
+
+        return response()->json(['success' => User::where('id', $id)->update([
             'name' => request('name'),
             'email' => request('email'),
             'password' => Hash::make(request('password')),
             'telephone' => request('telephone'),
             'sexe' => request('sexe'),
             'role' => request('role')
-          ]);
+          ]),'message' => 'Intervention updated successfully !']);
       }
       return response()->json(['errors' => $this->messages]);
     }
