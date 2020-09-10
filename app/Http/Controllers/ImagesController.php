@@ -35,8 +35,21 @@ class ImagesController extends Controller
      */
     public function store(Request $request)
     {
-        $images = Images::create($request->all());
-        return response()->json($images, 201);
+        $name = '';
+
+        if($request->name != '')
+        {
+            $name = time().'.png';
+            file_put_contents('storage/images/'.$name, base64_decode($request->name));
+            $request->name = $name;
+        }
+
+          $images = Images::create([
+            'name' => $name,
+            'size' => request('size')
+          ]);
+
+        return response()->json(['success' => $images,'message' => 'upload successfully !'], 201);
     }
 
     /**
