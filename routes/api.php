@@ -88,6 +88,7 @@ Route::group([
 
     // Signalisation route
     Route::get('signalisation', 'SignalisationsController@index');
+    Route::get('allSignalisation', 'SignalisationsController@all');
     Route::get('signalisation/{id}', 'SignalisationsController@show');
     Route::get('search', 'SignalisationsController@searchByValue');
     Route::get('signalisationcount', 'SignalisationsController@signalisationCount');

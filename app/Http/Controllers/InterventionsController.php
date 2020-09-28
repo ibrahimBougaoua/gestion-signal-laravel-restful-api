@@ -19,7 +19,9 @@ class InterventionsController extends Controller
      */
     public function index()
     {
-        return Intervention::all();
+        return Intervention::join('images','images.signalisation_id','=','interventions.signalisation_id')
+               ->select('images.name','interventions.id','interventions.signalisation_id','interventions.price','interventions.etat_avancement','interventions.date_debut','interventions.date_fin','interventions.created_at')
+               ->get();
     }
 
     /**
@@ -58,7 +60,7 @@ class InterventionsController extends Controller
      */
     public function show($id)
     {
-        return Intervention::where('id', $id)->first();
+        return response()->json(['data' => Intervention::where('id', $id)->first()]);
     }
 
     /**

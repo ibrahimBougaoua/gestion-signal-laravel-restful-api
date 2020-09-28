@@ -29,6 +29,23 @@ class SignalisationsController extends Controller
                ->where('trash',0)->get();
         return response()->json(['data' => $signalisations], 201);
     }
+    
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function all()
+    {
+        //$signalisations = Signalisation::where('trash',0)->get();
+
+        $signalisations = DB::table('signalisations')->whereNotExists(function ($query) {
+               $query->select(DB::raw(2))
+                     ->from('interventions')
+                     ->whereRaw('interventions.signalisation_id = signalisations.id');
+           })->get();
+        return response()->json(['data' => $signalisations], 201);
+    }
 
     /**
      * Show the form for creating a new resource.
