@@ -15,7 +15,7 @@ class UsersController extends Controller
 
     protected $messages = array();
     protected $sexe = ['male','female'];
-    protected $roles = ['teacher','student','adminstrator','manager','interventionteam','employee','ats'];
+    protected $roles = ['teacher','student','adminstrator','manager','interventionteam','ats'];
 
     /**
      * Display a listing of the resource.
@@ -24,7 +24,7 @@ class UsersController extends Controller
      */
     public function index()
     {
-        return User::where([['id' ,'!=', JWTAuth::parseToken()->toUser()->id]])->get();
+        return User::where([['id' ,'!=', JWTAuth::parseToken()->toUser()->id]])->orderBy('id', 'desc')->get();
     }
 
     /**

@@ -92,6 +92,9 @@ Route::group([
     Route::get('search', 'SignalisationsController@searchByValue');
     Route::get('signalisationcount', 'SignalisationsController@signalisationCount');
     Route::get('signalisationcommentsdashboard', 'SignalisationsController@SignalisationCommentsDashboard');
+    Route::get('allSignalisationByUserIdCountDashboard/{id}', 'SignalisationsController@allSignalisationByUserIdCountDashboard');
+    Route::get('trashSignalisationByUserIdCountDashboard/{id}', 'SignalisationsController@trashSignalisationByUserIdCountDashboard');
+    Route::get('SignalisationCompleteByUserIdCountDashboard/{id}', 'SignalisationsController@SignalisationCompleteByUserIdCountDashboard');
     Route::get('signalisationetatavancementdashboard', 'SignalisationsController@SignalisationEtatAvancementDashboard');
     Route::get('allsignalercount', 'SignalisationsController@allSignalerCount');
     Route::get('allsignalisationbyuserid/{id}', 'SignalisationsController@allSignalisationByUserId');

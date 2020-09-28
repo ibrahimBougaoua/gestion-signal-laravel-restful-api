@@ -48,7 +48,7 @@ class SignalersController extends Controller
 
       if (empty($this->messages)) {
         $signaler = Signaler::create($request->all());
-        return response()->json($signaler, 201);
+        return response()->json(['success' => $signaler,'message' => 'Signalisation added successfully !']);
       }
       return response()->json(['errors' => $this->messages]);
     }

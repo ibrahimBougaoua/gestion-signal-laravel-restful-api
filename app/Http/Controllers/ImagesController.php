@@ -39,7 +39,7 @@ class ImagesController extends Controller
 
         if($request->name != '')
         {
-            $name = time().'.png';
+            $name = time().'.jpg';
             file_put_contents('storage/images/'.$name, base64_decode($request->name));
             $request->name = $name;
         }
@@ -60,7 +60,10 @@ class ImagesController extends Controller
      */
     public function show($id)
     {
-        return Images::where('id', $id)->first();
+        $img_source = "storage/images/1599424543.png"; // image path/name
+        $img_binary = fread(fopen($img_source, "r"), filesize($img_source));
+        $img_string = base64_encode($img_binary);
+        return $img_string;//Images::where('id', $id)->first();
     }
 
     /**

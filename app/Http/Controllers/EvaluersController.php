@@ -84,8 +84,11 @@ class EvaluersController extends Controller
      */
     public function chefIntervention($id)
     {
-        $evaluer = Evaluer::join('interventions','interventions.id','=','evaluers.intervention_id')->join('signalisations','signalisations.id','=','signalisation_id')->where('user_id', $id)
-               ->get();
+        $evaluer = Evaluer::join('interventions','interventions.id','=','evaluers.intervention_id')
+                   ->join('signalisations','signalisations.id','=','signalisation_id')
+                   ->join('images','images.signalisation_id','=','signalisations.id')
+                   ->where('evaluers.user_id', $id)
+                   ->get();
         return response()->json(['data' => $evaluer], 201);
     }
 

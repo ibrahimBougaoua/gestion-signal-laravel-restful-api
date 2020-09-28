@@ -20,7 +20,13 @@ class SignalisationsController extends Controller
      */
     public function index()
     {
-        $signalisations = Signalisation::all();
+        //$signalisations = Signalisation::where('trash',0)->get();
+
+        $signalisations = Signalisation::join('images','images.signalisation_id','=','signalisations.id')
+               ->join('signalers','signalers.signalisation_id','=','signalisations.id')
+               ->join('users','users.id','=','images.user_id')
+               ->select('signalisations.id','signalisations.desc','signalisations.localisation','signalisations.lieu','signalisations.nature','signalisations.cause','signalisations.trash','signalisations.created_at','images.user_id','images.name','users.name as user_name')
+               ->where('trash',0)->get();
         return response()->json(['data' => $signalisations], 201);
     }
 
@@ -104,7 +110,11 @@ class SignalisationsController extends Controller
      */
     public function allSignalisationByUserId($user_id)
     {
-        return Signalisation::join('signalers','signalers.signalisation_id','=','signalisations.id')->where('user_id',$user_id)->get();
+        return response()->json(['data' => Signalisation::join('images','images.signalisation_id','=','signalisations.id')
+                                           ->join('signalers','signalers.signalisation_id','=','signalisations.id')
+                                           ->select('signalisations.id','signalisations.desc','signalisations.localisation','signalisations.lieu','signalisations.nature','signalisations.cause','signalisations.trash','signalisations.edit','signalisations.created_at','images.user_id','images.name')
+                                           ->where('trash',0)->where('images.user_id',$user_id)->get()
+                                        ]);
     }
 
     /**
@@ -115,7 +125,29 @@ class SignalisationsController extends Controller
      */
     public function allSignalisationByUserIdCountDashboard($user_id)
     {
-        return Signalisation::join('signalers','signalers.signalisation_id','=','signalisations.id')->where('user_id',$user_id)->count();
+        return response()->json(['data' => Signalisation::join('signalers','signalers.signalisation_id','=','signalisations.id')->where('user_id',$user_id)->count()]);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function trashSignalisationByUserIdCountDashboard($user_id)
+    {
+        return response()->json(['data' => Signalisation::join('signalers','signalers.signalisation_id','=','signalisations.id')->where('user_id',$user_id)->where('trash',1)->count()]);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function SignalisationCompleteByUserIdCountDashboard($user_id)
+    {
+        return response()->json(['data' => Signalisation::join('signalers','signalers.signalisation_id','=','signalisations.id')->join('interventions','interventions.signalisation_id','=','signalisations.id')->where('etat_avancement','terminer')->where('user_id',$user_id)->where('trash',1)->count()]);
     }
 
     /**
@@ -182,13 +214,13 @@ class SignalisationsController extends Controller
      */
     public function update(Request $request, $id)
     {
-      if (empty(request('desc')) || empty(request('localisation')) || empty(request('lieu')) || empty(request('nature')) || empty(request('cause')) )
-        $this->messages['fields'] = 'you can not use a empty value !';
+      //if (empty(request('desc')) || empty(request('localisation')) || empty(request('lieu')) || empty(request('nature')) || empty(request('cause')) || empty(request('trash')) )
+        //$this->messages['fields'] = 'you can not use a empty value !';
 
-      if (empty($this->messages)) {
-        return Signalisation::where('id', $id)->update($request->all());
-      }
-      return response()->json(['errors' => $this->messages]);
+      //if (empty($this->messages)) {
+        return response()->json(['success' => Signalisation::where('id', $id)->update($request->all()),'message' => 'Signalisation updated successfully !']);
+      //} 
+      //return response()->json(['errors' => $this->messages]);
     }
 
     /**
