@@ -110,6 +110,40 @@ class UsersController extends Controller
     }
 
     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function allChefsHasNoIntervention()
+    {
+        //$signalisations = Signalisation::where('trash',0)->get();
+
+        $users = DB::table('users')->whereNotExists(function ($query) {
+               $query->select(DB::raw(5))
+                     ->from('equipes')
+                     ->whereRaw('equipes.chef_equipe = users.id');
+           })->where('role','interventionteam')->get();
+        return response()->json(['data' => $users], 201);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function allAtssHasNoInvitationInTeam()
+    {
+        //$signalisations = Signalisation::where('trash',0)->get();
+
+        $users = DB::table('users')->whereNotExists(function ($query) {
+               $query->select(DB::raw(1))
+                     ->from('membres')
+                     ->whereRaw('membres.user_id = users.id');
+           })->where('role','ats')->get();
+        return response()->json(['data' => $users], 201);
+    }
+
+    /**
      * Display the specified resource.
      *
      * @param  int  $id

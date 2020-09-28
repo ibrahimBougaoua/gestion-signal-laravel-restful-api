@@ -113,6 +113,8 @@ Route::group([
     // Users route
     Route::get('user', 'UsersController@index');
     Route::get('user/{id}', 'UsersController@show');
+    Route::get('allChefsHasNoIntervention', 'UsersController@allChefsHasNoIntervention');
+    Route::get('allAtssHasNoInvitationInTeam', 'UsersController@allAtssHasNoInvitationInTeam');
     Route::get('listOfManagersAndChefs', 'UsersController@ListOfManagersAndChefs');
     Route::get('usercount', 'UsersController@userCount');
     Route::get('usercountbyrole/{role}', 'UsersController@userCountByRole');
