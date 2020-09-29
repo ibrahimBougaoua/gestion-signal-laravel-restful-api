@@ -152,7 +152,7 @@ class EquipesController extends Controller
      */
     public function update(Request $request, $id)
     {
-      if (empty(request('d_f_equipe')) || empty(request('mail')) || empty(request('telephone')) || empty(request('chef_equipe')) )
+      if (empty(request('d_f_equipe')) || empty(request('mail')) || empty(request('telephone')) )
         $this->messages['fields'] = 'you can not use a empty value !';
 
       //if (Equipe::where('mail','=',request('mail'))->exists())
