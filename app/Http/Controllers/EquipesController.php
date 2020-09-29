@@ -155,14 +155,11 @@ class EquipesController extends Controller
       if (empty(request('d_f_equipe')) || empty(request('mail')) || empty(request('telephone')) || empty(request('chef_equipe')) )
         $this->messages['fields'] = 'you can not use a empty value !';
 
-      if (Equipe::where('mail','=',request('mail'))->exists())
-        $this->messages['mail'] = 'email allready exists !';
+      //if (Equipe::where('mail','=',request('mail'))->exists())
+      //  $this->messages['mail'] = 'email allready exists !';
 
-      if (Equipe::where('telephone','=',request('telephone'))->exists())
-        $this->messages['telephone'] = 'telephone allready exists !';
-
-      if (Equipe::where('chef_equipe','=',request('chef_equipe'))->exists())
-        $this->messages['chef_equipe'] = 'chef equipe allready exists !';
+      //if (Equipe::where('telephone','=',request('telephone'))->exists())
+      //  $this->messages['telephone'] = 'telephone allready exists !';
     
       if (empty($this->messages)) {
         $equipe = Equipe::findOrFail($id);
