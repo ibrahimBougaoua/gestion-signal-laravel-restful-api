@@ -98,4 +98,18 @@ class MembresController extends Controller
         $membre = Membre::where('user_id', $id)->delete();
         return 204;
     }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function deleteAllMembre($id)
+    {
+        
+        $membre = Membre::where('equipe_id', $id)->delete();
+        return 204;
+    }
+
 }

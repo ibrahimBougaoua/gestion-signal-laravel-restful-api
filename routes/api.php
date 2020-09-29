@@ -75,6 +75,7 @@ Route::group([
     Route::post('membre', 'MembresController@store');
     Route::put('membre/{id}', 'MembresController@update');
     Route::delete('membre/{id}', 'MembresController@destroy');
+    Route::delete('deleteAllMembre/{id}', 'MembresController@deleteAllMembre');
 
     // Signaler route
     Route::get('signaler', 'SignalersController@index');
