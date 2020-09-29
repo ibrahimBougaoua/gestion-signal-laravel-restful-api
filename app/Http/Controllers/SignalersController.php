@@ -129,6 +129,19 @@ class SignalersController extends Controller
     {
         return Signaler::where('user_id', $id)->update($request->all());
     }
+    
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function deleteAllSignales($id)
+    {
+        
+        $signaler = Signaler::where('signalisation_id', $id)->delete();
+        return 204;
+    }
 
     /**
      * Remove the specified resource from storage.
@@ -143,16 +156,4 @@ class SignalersController extends Controller
         return 204;
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function deleteAllSignales($id)
-    {
-        
-        $signaler = Signaler::where('signalisation_id', $id)->delete();
-        return 204;
-    }
 }
