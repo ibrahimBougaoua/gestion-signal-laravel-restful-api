@@ -86,6 +86,7 @@ Route::group([
     Route::post('signaler', 'SignalersController@store');
     Route::put('signaler/{id}', 'SignalersController@update');
     Route::delete('signaler/{id}', 'SignalersController@destroy');
+    Route::delete('deleteAllSignales/{id}', 'SignalersController@deleteAllSignales');
 
     // Signalisation route
     Route::get('signalisation', 'SignalisationsController@index');
