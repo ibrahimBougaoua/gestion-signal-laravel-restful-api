@@ -70,10 +70,10 @@ class InformersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function ifInformer($id) // message(7,6) or message(6,7)
+    public function allChefsHasInformer($signalisation_id) // message(7,6) or message(6,7)
     { // gest_id == user_id
         //return Informer::where([['gest_id', JWTAuth::parseToken()->toUser()->id],['signalisation_id', $id]])->join('users','users.id','=','informers.gest_id')->first();
-        return Informer::where('signalisation_id', $id)->join('users','users.id','=','informers.chef_id')->get();
+       return response()->json(['data' => Informer::join('users','users.id','=','informers.chef_id')->where('signalisation_id',$signalisation_id)->get()], 201);
     }
 
     /**

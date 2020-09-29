@@ -54,7 +54,7 @@ Route::group([
     // Informer route
     Route::get('informer', 'InformersController@index');
     Route::get('informer/{id}', 'InformersController@show');
-    Route::get('ifinformer/{id}', 'InformersController@ifInformer');
+    Route::get('allChefsHasInformer/{id}', 'InformersController@ifInformer');
     Route::post('informer', 'InformersController@store');
     Route::put('informer/{id}', 'InformersController@update');
     Route::delete('informer/{id}', 'InformersController@destroy');
