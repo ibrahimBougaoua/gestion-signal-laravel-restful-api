@@ -84,7 +84,11 @@ class SignalisationsController extends Controller
      */
     public function show($id)
     {
-        return Signalisation::where('id', $id)->first();
+        return response()->json(['data' => Signalisation::join('images','images.signalisation_id','=','signalisations.id')
+                                           ->join('users','users.id','=','images.user_id')
+                                           ->select('signalisations.id','signalisations.desc','signalisations.localisation','signalisations.lieu','signalisations.nature','signalisations.cause','signalisations.created_at','images.user_id','images.name','users.name as user_name')
+                                           ->where('trash',0)->where('signalisations.id',$id)->first()
+                                        ]);
     }
 
     /**
@@ -103,9 +107,6 @@ class SignalisationsController extends Controller
          
       if ( ! empty(request('cause')) )
              return Signalisation::where('cause','like', request('cause'))->orderBy('id')->get();
-         
-      if ( ! empty(request('localisation')) )
-             return Signalisation::where('localisation','like', request('localisation'))->orderBy('id')->get();
     }
 
     /**
