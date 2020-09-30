@@ -58,6 +58,7 @@ Route::group([
     Route::post('informer', 'InformersController@store');
     Route::put('informer/{id}', 'InformersController@update');
     Route::delete('informer/{id}', 'InformersController@destroy');
+    Route::delete('deleteChefInformer/{id}/signalisation_id/{ids}', 'InformersController@deleteChefInformer');
 
     // Intervention route
     Route::get('intervention', 'InterventionsController@index');
