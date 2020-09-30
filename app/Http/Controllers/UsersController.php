@@ -133,8 +133,7 @@ class UsersController extends Controller
      */
     public function allChefsHasNoInformer($signalisation_id)
     {
-        $users = DB::table('users')->whereNotExists(function ($query) {
-            $signalisation_id = 1;
+        $users = DB::table('users')->whereNotExists(function ($query) use ($signalisation_id) {
                $query->select(DB::raw(2,3))
                      ->from('informers')
                      ->whereRaw('informers.chef_id = users.id and informers.signalisation_id = '.$signalisation_id);
