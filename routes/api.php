@@ -91,9 +91,11 @@ Route::group([
 
     // Signalisation route
     Route::get('signalisation', 'SignalisationsController@index');
+    Route::get('signalisationHasEnding', 'SignalisationsController@signalisationHasEnding');
     Route::get('signalisationTrash', 'SignalisationsController@trash');
     Route::get('allSignalisation', 'SignalisationsController@all');
     Route::get('signalisation/{id}', 'SignalisationsController@show');
+    Route::get('signalisationsByAuthor/{id}', 'SignalisationsController@signalisationsByAuthor');
     Route::get('search', 'SignalisationsController@searchByValue');
     Route::get('signalisationcount', 'SignalisationsController@signalisationCount');
     Route::get('signalisationcommentsdashboard', 'SignalisationsController@SignalisationCommentsDashboard');

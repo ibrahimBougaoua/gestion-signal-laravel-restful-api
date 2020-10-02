@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use App\Signalisation;
 use App\Signaler;
 use App\Comments;
+use App\User;
 
 class SignalisationsController extends Controller
 {
@@ -35,6 +36,24 @@ class SignalisationsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function signalisationHasEnding()
+    {
+        //$signalisations = Signalisation::where('trash',0)->get();
+
+        $signalisations = Signalisation::join('images','images.signalisation_id','=','signalisations.id')
+               ->join('signalers','signalers.signalisation_id','=','signalisations.id')
+               ->join('users','users.id','=','images.user_id')
+               ->join('interventions','interventions.signalisation_id','=','signalisations.id')
+               ->select('signalisations.id','signalisations.desc','signalisations.localisation','signalisations.lieu','signalisations.nature','signalisations.cause','signalisations.trash','signalisations.edit','signalisations.created_at','images.user_id','images.name','users.name as user_name','interventions.etat_avancement')
+               ->where('etat_avancement','terminer')->get();
+        return response()->json(['data' => $signalisations], 201);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function trash()
     {
         //$signalisations = Signalisation::where('trash',0)->get();
@@ -45,6 +64,23 @@ class SignalisationsController extends Controller
                ->select('signalisations.id','signalisations.desc','signalisations.localisation','signalisations.lieu','signalisations.nature','signalisations.cause','signalisations.trash','signalisations.edit','signalisations.created_at','images.user_id','images.name','users.name as user_name')
                ->where('trash',1)->get();
         return response()->json(['data' => $signalisations], 201);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function signalisationsByAuthor($user_id)
+    {
+        //$signalisations = Signalisation::where('trash',0)->get();
+
+        $signalisations = Signalisation::join('images','images.signalisation_id','=','signalisations.id')
+               ->join('signalers','signalers.signalisation_id','=','signalisations.id')
+               ->join('users','users.id','=','images.user_id')
+               ->select('signalisations.id','signalisations.desc','signalisations.localisation','signalisations.lieu','signalisations.nature','signalisations.cause','signalisations.trash','signalisations.edit','signalisations.created_at','images.user_id','images.name','users.name as user_name')
+               ->where('images.user_id',$user_id)->get();
+        return response()->json(['data' => $signalisations,'user_data' => User::where('id',$user_id)->first()], 201);
     }
     
     /**
