@@ -18,6 +18,7 @@ class CreateEquipesTable extends Migration
             $table->string('d_f_equipe');
             $table->string('mail');
             $table->string('telephone');
+            $table->unsignedInteger('chef_equipe');
             $table->timestamps();
         });
     }
