@@ -21,6 +21,8 @@ class CreateSignalisationsTable extends Migration
             $table->string('lieu');
             $table->string('nature');
             $table->string('cause');
+            $table->unsignedInteger('trash');
+            $table->unsignedInteger('edit');
             $table->timestamps();
         });
     }
