@@ -29,6 +29,23 @@ class SignalisationsController extends Controller
                ->where('trash',0)->get();
         return response()->json(['data' => $signalisations], 201);
     }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function trash()
+    {
+        //$signalisations = Signalisation::where('trash',0)->get();
+
+        $signalisations = Signalisation::join('images','images.signalisation_id','=','signalisations.id')
+               ->join('signalers','signalers.signalisation_id','=','signalisations.id')
+               ->join('users','users.id','=','images.user_id')
+               ->select('signalisations.id','signalisations.desc','signalisations.localisation','signalisations.lieu','signalisations.nature','signalisations.cause','signalisations.trash','signalisations.edit','signalisations.created_at','images.user_id','images.name','users.name as user_name')
+               ->where('trash',1)->get();
+        return response()->json(['data' => $signalisations], 201);
+    }
     
     /**
      * Display a listing of the resource.

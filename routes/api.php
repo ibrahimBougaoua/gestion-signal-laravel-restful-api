@@ -91,6 +91,7 @@ Route::group([
 
     // Signalisation route
     Route::get('signalisation', 'SignalisationsController@index');
+    Route::get('signalisationTrash', 'SignalisationsController@trash');
     Route::get('allSignalisation', 'SignalisationsController@all');
     Route::get('signalisation/{id}', 'SignalisationsController@show');
     Route::get('search', 'SignalisationsController@searchByValue');
