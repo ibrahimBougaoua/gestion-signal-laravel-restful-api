@@ -18,7 +18,8 @@ class CreateInterventionsTable extends Migration
             $table->unsignedInteger('signalisation_id');
             $table->double('price',8,2);
             $table->string('etat_avancement');
-            $table->string('date');
+            $table->date('date_debut');
+            $table->date('date_fin');
             $table->timestamps();
         });
     }
