@@ -19,9 +19,8 @@ class InterventionsController extends Controller
      */
     public function index()
     {
-        return Intervention::join('images','images.signalisation_id','=','interventions.signalisation_id')
-               ->select('images.name','interventions.id','interventions.signalisation_id','interventions.price','interventions.etat_avancement','interventions.date_debut','interventions.date_fin','interventions.created_at')
-               ->get();
+        return response()->json(['data' => Intervention::join('images','images.signalisation_id','=','interventions.signalisation_id')
+               ->select('images.name','interventions.id','interventions.signalisation_id','interventions.price','interventions.etat_avancement','interventions.date_debut','interventions.date_fin','interventions.created_at')->orderBy('id', 'desc')->get()]);
     }
 
     /**

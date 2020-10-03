@@ -24,7 +24,7 @@ class SignalisationsController extends Controller
         //$signalisations = Signalisation::where('trash',0)->get();
 
         $signalisations = Signalisation::join('images','images.signalisation_id','=','signalisations.id')
-               ->join('signalers','signalers.signalisation_id','=','signalisations.id')
+               //->join('signalers','signalers.signalisation_id','=','signalisations.id')
                ->join('users','users.id','=','images.user_id')
                ->select('signalisations.id','signalisations.desc','signalisations.localisation','signalisations.lieu','signalisations.nature','signalisations.cause','signalisations.trash','signalisations.edit','signalisations.created_at','images.user_id','images.name','users.name as user_name')
                ->where('trash',0)->get();
