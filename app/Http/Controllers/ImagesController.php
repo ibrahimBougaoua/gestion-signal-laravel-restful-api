@@ -46,7 +46,9 @@ class ImagesController extends Controller
 
           $images = Images::create([
             'name' => $name,
-            'size' => request('size')
+            'size' => request('size'),
+            'user_id' => request('user_id'),
+            'signalisation_id' => request('signalisation_id')
           ]);
 
         return response()->json(['success' => $images,'message' => 'upload successfully !'], 201);

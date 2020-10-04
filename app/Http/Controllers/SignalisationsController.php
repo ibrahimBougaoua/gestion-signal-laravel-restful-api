@@ -27,7 +27,7 @@ class SignalisationsController extends Controller
                //->join('signalers','signalers.signalisation_id','=','signalisations.id')
                ->join('users','users.id','=','images.user_id')
                ->select('signalisations.id','signalisations.desc','signalisations.localisation','signalisations.lieu','signalisations.nature','signalisations.cause','signalisations.trash','signalisations.edit','signalisations.created_at','images.user_id','images.name','users.name as user_name')
-               ->where('trash',0)->get();
+               ->where('trash',0)->orderBy('signalisations.id', 'desc')->get();
         return response()->json(['data' => $signalisations], 201);
     }
 
@@ -45,7 +45,7 @@ class SignalisationsController extends Controller
                ->join('users','users.id','=','images.user_id')
                ->join('interventions','interventions.signalisation_id','=','signalisations.id')
                ->select('signalisations.id','signalisations.desc','signalisations.localisation','signalisations.lieu','signalisations.nature','signalisations.cause','signalisations.trash','signalisations.edit','signalisations.created_at','images.user_id','images.name','users.name as user_name','interventions.etat_avancement')
-               ->where('etat_avancement','terminer')->get();
+               ->where('etat_avancement','terminer')->orderBy('signalisations.id', 'desc')->get();
         return response()->json(['data' => $signalisations], 201);
     }
 
@@ -62,7 +62,7 @@ class SignalisationsController extends Controller
                ->join('signalers','signalers.signalisation_id','=','signalisations.id')
                ->join('users','users.id','=','images.user_id')
                ->select('signalisations.id','signalisations.desc','signalisations.localisation','signalisations.lieu','signalisations.nature','signalisations.cause','signalisations.trash','signalisations.edit','signalisations.created_at','images.user_id','images.name','users.name as user_name')
-               ->where('trash',1)->get();
+               ->where('trash',1)->orderBy('signalisations.id', 'desc')->get();
         return response()->json(['data' => $signalisations], 201);
     }
 
@@ -79,7 +79,7 @@ class SignalisationsController extends Controller
                ->join('signalers','signalers.signalisation_id','=','signalisations.id')
                ->join('users','users.id','=','images.user_id')
                ->select('signalisations.id','signalisations.desc','signalisations.localisation','signalisations.lieu','signalisations.nature','signalisations.cause','signalisations.trash','signalisations.edit','signalisations.created_at','images.user_id','images.name','users.name as user_name')
-               ->where('images.user_id',$user_id)->get();
+               ->where('images.user_id',$user_id)->orderBy('signalisations.id', 'desc')->get();
         return response()->json(['data' => $signalisations,'user_data' => User::where('id',$user_id)->first()], 201);
     }
     
@@ -119,14 +119,29 @@ class SignalisationsController extends Controller
     public function store(Request $request)
     {
 
-      if (empty(request('desc')) || empty(request('localisation')) || empty(request('lieu')) || empty(request('nature')) || empty(request('cause')) )
-        $this->messages['fields'] = 'you can not use a empty value !';
+      //if (empty(request('desc')) || empty(request('localisation')) || empty(request('lieu')) || empty(request('nature')) || empty(request('cause')) )
+        //$this->messages['fields'] = 'you can not use a empty value !';
 
-      if (empty($this->messages)) {
-        $signalisation = Signalisation::create($request->all());
+      //if (empty($this->messages)) {
+        //$signalisation = Signalisation::create($request->all());
+        //return response()->json($signalisation, 201);
+      //}
+      //return response()->json(['errors' => $this->messages]);
+
+
+          $signalisation = Signalisation::create([
+            'desc' => request('desc'),
+            'localisation' => request('localisation'),
+            'lieu' => request('lieu'),
+            'nature' => request('nature'),
+            'nature' => request('nature'),
+            'cause' => request('cause'),
+            'edit' => request('edit'),
+            'trash' => request('trash')
+          ]);
         return response()->json($signalisation, 201);
-      }
-      return response()->json(['errors' => $this->messages]);
+
+
     }
 
     /**

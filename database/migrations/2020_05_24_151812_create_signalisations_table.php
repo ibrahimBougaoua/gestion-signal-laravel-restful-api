@@ -15,14 +15,13 @@ class CreateSignalisationsTable extends Migration
     {
         Schema::create('signalisations', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('desc');
-            $table->string('localisation');
-            $table->string('photo');
-            $table->string('lieu');
-            $table->string('nature');
-            $table->string('cause');
-            $table->unsignedInteger('trash');
-            $table->unsignedInteger('edit');
+            $table->string('desc')->nullable();
+            $table->string('localisation')->nullable();
+            $table->string('lieu')->nullable();
+            $table->string('nature')->nullable();
+            $table->string('cause')->nullable();
+            $table->unsignedInteger('trash')->nullable();
+            $table->unsignedInteger('edit')->nullable();
             $table->timestamps();
         });
     }
