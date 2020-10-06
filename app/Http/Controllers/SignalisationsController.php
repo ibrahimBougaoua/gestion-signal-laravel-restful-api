@@ -76,13 +76,13 @@ class SignalisationsController extends Controller
         //$signalisations = Signalisation::where('trash',0)->get();
 
         $signalisations = Signalisation::join('images','images.signalisation_id','=','signalisations.id')
-               ->join('signalers','signalers.signalisation_id','=','signalisations.id')
-               ->join('users','users.id','=','images.user_id')
-               ->select('signalisations.id','signalisations.desc','signalisations.localisation','signalisations.lieu','signalisations.nature','signalisations.cause','signalisations.trash','signalisations.edit','signalisations.created_at','images.user_id','images.name','users.name as user_name')
-               ->where('images.user_id',$user_id)->orderBy('signalisations.id', 'desc')->get();
+                                           ->join('signalers','signalers.signalisation_id','=','signalisations.id')
+                                           ->select('signalisations.id','signalisations.desc','signalisations.localisation','signalisations.lieu','signalisations.nature','signalisations.cause','signalisations.trash','signalisations.edit','signalisations.created_at','images.user_id','images.name')
+                                           ->where('trash',0)->where('images.user_id',$user_id)->orderBy('signalisations.id', 'desc')->get();
         return response()->json(['data' => $signalisations,'user_data' => User::where('id',$user_id)->first()], 201);
     }
     
+
     /**
      * Display a listing of the resource.
      *
@@ -199,7 +199,7 @@ class SignalisationsController extends Controller
         return response()->json(['data' => Signalisation::join('images','images.signalisation_id','=','signalisations.id')
                                            ->join('signalers','signalers.signalisation_id','=','signalisations.id')
                                            ->select('signalisations.id','signalisations.desc','signalisations.localisation','signalisations.lieu','signalisations.nature','signalisations.cause','signalisations.trash','signalisations.edit','signalisations.created_at','images.user_id','images.name')
-                                           ->where('trash',0)->where('images.user_id',$user_id)->get()
+                                           ->where('trash',0)->orderBy('signalisations.id', 'desc')->get()
                                         ]);
     }
 
@@ -234,6 +234,19 @@ class SignalisationsController extends Controller
     public function SignalisationCompleteByUserIdCountDashboard($user_id)
     {
         return response()->json(['data' => Signalisation::join('signalers','signalers.signalisation_id','=','signalisations.id')->join('interventions','interventions.signalisation_id','=','signalisations.id')->where('etat_avancement','terminer')->where('user_id',$user_id)->where('trash',1)->count()]);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function SignalisationCompleteByLeaderCountDashboard($user_id)
+    {
+        return response()->json(['data' => Signalisation::join('interventions','interventions.signalisation_id','=','signalisations.id')
+                                          ->join('evaluers','evaluers.intervention_id','=','interventions.id')
+                                          ->where('etat_avancement','terminer')->where('user_id',$user_id)->count()]);
     }
 
     /**

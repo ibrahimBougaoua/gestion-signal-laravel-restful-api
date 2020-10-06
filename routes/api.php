@@ -102,6 +102,7 @@ Route::group([
     Route::get('allSignalisationByUserIdCountDashboard/{id}', 'SignalisationsController@allSignalisationByUserIdCountDashboard');
     Route::get('trashSignalisationByUserIdCountDashboard/{id}', 'SignalisationsController@trashSignalisationByUserIdCountDashboard');
     Route::get('SignalisationCompleteByUserIdCountDashboard/{id}', 'SignalisationsController@SignalisationCompleteByUserIdCountDashboard');
+    Route::get('SignalisationCompleteByLeaderCountDashboard/{id}', 'SignalisationsController@SignalisationCompleteByLeaderCountDashboard');
     Route::get('signalisationetatavancementdashboard', 'SignalisationsController@SignalisationEtatAvancementDashboard');
     Route::get('allsignalercount', 'SignalisationsController@allSignalerCount');
     Route::get('allsignalisationbyuserid/{id}', 'SignalisationsController@allSignalisationByUserId');
