@@ -133,16 +133,11 @@ Route::group([
     Route::put('message/{id}', 'MessagesController@update');
     Route::delete('message/{id}', 'MessagesController@destroy');
 
-    // Comments route
-    Route::get('comment', 'CommentsController@index');
-    Route::put('comment/{id}', 'CommentsController@update');
-    Route::get('comment/{id}', 'CommentsController@show');
-    Route::get('getallcomments/{id}', 'CommentsController@getAllComments');
-    Route::get('getallsignalisationcomments/{id}', 'CommentsController@getAllSignalisationComments');
-    Route::get('allcomments', 'CommentsController@getAllCommentsCount');
-    Route::get('commentscountdashboard/{id}', 'CommentsController@CommentsCountDashboard');
-    Route::post('comment', 'CommentsController@store');
-    Route::put('comment/{id}', 'CommentsController@update');
-    Route::delete('comment/{id}', 'CommentsController@destroy');
+    // Comment route
+    Route::get('index', 'CommentsController@index');
+    Route::get('show/{id}', 'CommentsController@show');
+    Route::post('store', 'CommentsController@store');
+    Route::put('update/{id}', 'CommentsController@update');
+    Route::delete('delete/{id}', 'CommentsController@destroy');
 
 });

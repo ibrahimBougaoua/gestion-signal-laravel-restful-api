@@ -9,8 +9,6 @@ use App\Comments;
 class CommentsController extends Controller
 {
 
-    protected $messages = array();
-    
     /**
      * Display a listing of the resource.
      *
@@ -18,17 +16,7 @@ class CommentsController extends Controller
      */
     public function index()
     {
-        return Comments::all();
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return Comments::get();
     }
 
     /**
@@ -39,14 +27,19 @@ class CommentsController extends Controller
      */
     public function store(Request $request)
     {
-      if (empty(request('reply_id')) || empty(request('user_id')) || empty(request('signalisation_id')) || empty(request('name')) || empty(request('mail')) || empty(request('comment')) )
-        $this->messages['fields'] = 'you can not use a empty value !';
-
-      //if (empty($this->messages)) {
-        $comments = Comments::create($request->all());
-        return response()->json($comments, 201);
-      //}
-      //return response()->json(['errors' => $this->messages]);
+        try {
+            Comments::create([
+                'reply_id' => $request->reply_id,
+                'user_id' => $request->user_id,
+                'signalisation_id' => $request->signalisation_id,
+                'name' => $request->name,
+                'mail' => $request->mail,
+                'comment' => $request->comment
+            ]);
+            return response()->json(['message' => 'comment added successfully !'], 201);
+        } catch (Exception $e) {
+            return response()->json(['error' => 'error.']);
+        }
     }
 
     /**
@@ -55,64 +48,16 @@ class CommentsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($comment_id)
+    public function show($id)
     {
-        return Comments::where('id', $comment_id)->first();
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function getAllSignalisationComments($signalisation_id)
-    {
-        return Comments::where('signalisation_id', $signalisation_id)->get();
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function getAllCommentsCount()
-    {
-        return response()->json(['data' => Comments::count()]);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function getAllComments($user_id)
-    {
-        return Comments::where('user_id','=',$user_id)->get();
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function CommentsCountDashboard($user_id)
-    {
-        return response()->json(['data' => Comments::where('user_id', $user_id)->count()]);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        try {
+            $comment = Comments::where('id', $id)->first();
+            if( !$comment )
+                return response()->json(['error' => 'comment doesn\'t exisits .']);
+            return response()->json($comment);
+        } catch (Exception $e) {
+            return response()->json(['error' => 'error.']);
+        }
     }
 
     /**
@@ -124,13 +69,22 @@ class CommentsController extends Controller
      */
     public function update(Request $request, $id)
     {
-      if (empty(request('reply_id')) || empty(request('user_id')) || empty(request('signalisation_id')) || empty(request('name')) || empty(request('mail')) || empty(request('comment')) )
-        $this->messages['fields'] = 'you can not use a empty value !';
-
-      if (empty($this->messages)) {
-        return Comments::where('id', $id)->update($request->all());
-      }
-      return response()->json(['errors' => $this->messages]);
+        try {
+            $comment = Comments::find($id);
+            if( ! $comment )
+                return response()->json(['error' => 'this comment doesn\'t exists']);
+            $comment->update([
+                'reply_id' => $request->reply_id,
+                'user_id' => $request->user_id,
+                'signalisation_id' => $request->signalisation_id,
+                'name' => $request->name,
+                'mail' => $request->mail,
+                'comment' => $request->comment
+            ]);
+            return response()->json(['message' => 'comment updated successfully !']);
+        } catch (Exception $e) {
+            return response()->json(['error' => 'error.']);
+        }
     }
 
     /**
@@ -141,8 +95,14 @@ class CommentsController extends Controller
      */
     public function destroy($id)
     {
-        
-        $comments = Comments::where('id', $id)->delete();
-        return 204;
+        try {
+            $comment = Comments::find($id);
+            if( ! $comment )
+                return response()->json(['error' => 'error.']);
+            $comment->delete();
+            return response()->json(['message' => 'comment deleted suucessfully !']);
+        } catch (Exception $e) {
+            return response()->json(['error' => 'error.']);
+        }
     }
 }
