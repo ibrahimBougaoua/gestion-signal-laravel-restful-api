@@ -31,16 +31,13 @@ Route::group([
     Route::post('refresh', 'AuthController@refresh');
     Route::post('me', 'AuthController@me');
 
-    // equipe route
-    Route::get('equipe', 'EquipesController@index');
-    Route::get('equipe/{id}', 'EquipesController@show');
-    Route::get('equipecount', 'EquipesController@equipeCount');
-    Route::get('equipemembre/{id}', 'EquipesController@equipeMembre');
-    Route::get('equipemembrebyid/{id}', 'EquipesController@equipeMembreById');
-    Route::get('equipedashboard', 'EquipesController@equipeDashboard');
-    Route::post('equipe', 'EquipesController@store');
-    Route::put('equipe/{id}', 'EquipesController@update');
-    Route::delete('equipe/{id}', 'EquipesController@destroy');
+    // Equipe route
+    Route::get('index', 'EquipesController@index');
+    Route::get('show/{id}', 'EquipesController@show');
+    Route::get('count', 'EquipesController@count');
+    Route::post('store', 'EquipesController@store');
+    Route::post('update/{id}', 'EquipesController@update');
+    Route::post('delete/{id}', 'EquipesController@destroy');
 
     // Evaluer route
     Route::get('evaluer', 'EvaluersController@index');
@@ -137,7 +134,7 @@ Route::group([
     Route::get('index', 'CommentsController@index');
     Route::get('show/{id}', 'CommentsController@show');
     Route::post('store', 'CommentsController@store');
-    Route::put('update/{id}', 'CommentsController@update');
-    Route::delete('delete/{id}', 'CommentsController@destroy');
+    Route::post('update/{id}', 'CommentsController@update');
+    Route::post('delete/{id}', 'CommentsController@destroy');
 
 });

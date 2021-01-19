@@ -9,9 +9,6 @@ use App\Membre;
 
 class EquipesController extends Controller
 {
-
-    protected $messages = array();
-
     /**
      * Display a listing of the resource.
      *
@@ -19,17 +16,7 @@ class EquipesController extends Controller
      */
     public function index()
     {
-        return Equipe::all();
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return Equipe::get();
     }
 
     /**
@@ -40,23 +27,17 @@ class EquipesController extends Controller
      */
     public function store(Request $request)
     {
-      if (empty(request('d_f_equipe')) || empty(request('mail')) || empty(request('telephone')) || empty(request('chef_equipe')) )
-        $this->messages['fields'] = 'you can not use a empty value !';
-
-      if (Equipe::where('mail','=',request('mail'))->exists())
-        $this->messages['mail'] = 'email allready exists !';
-
-      if (Equipe::where('telephone','=',request('telephone'))->exists())
-        $this->messages['telephone'] = 'telephone allready exists !';
-
-      if (Equipe::where('chef_equipe','=',request('chef_equipe'))->exists())
-        $this->messages['chef_equipe'] = 'chef equipe allready exists !';
-    
-      if (empty($this->messages)) {
-        $equipe = Equipe::create($request->all());
-        return response()->json($equipe, 201);
-      }
-      return response()->json(['errors' => $this->messages]);
+        try {
+            Equipe::create([
+                'd_f_equipe' => $request->d_f_equipe,
+                'mail' => $request->mail,
+                'telephone' => $request->telephone,
+                'chef_equipe' => $request->chef_equipe
+            ]);
+            return response()->json(['message' => 'team added successfully !'], 201);
+        } catch (Exception $e) {
+            return response()->json(['error' => 'error.']);
+        }
     }
 
     /**
@@ -67,80 +48,26 @@ class EquipesController extends Controller
      */
     public function show($id)
     {
-        return Equipe::where('equipes.id','=',$id)
-               ->join('users','users.id','=','equipes.chef_equipe')
-               ->select('equipes.id','equipes.d_f_equipe','equipes.mail','equipes.telephone','equipes.created_at','users.name')
-               ->first();
+        try {
+            $equipe = Equipe::where('id', $id)->first();
+            if( ! $equipe )
+                return response()->json(['error' => 'equipe doesn\'t exisits .']);
+            return response()->json($equipe);
+        } catch (Exception $e) {
+            return response()->json(['error' => 'error.']);
+        }
     }
 
     /**
-     * Display the specified resource.
+     * equipe count.
      *
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function equipeCount()
+    public function count()
     {
-        return response()->json(['data' => Equipe::count()]);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function equipeDashboard()
-    {
-        return Equipe::join('membres','membres.equipe_id','=','equipes.id')
-               ->select('d_f_equipe',DB::raw('count(*) as total'))
-               ->groupBy('d_f_equipe')
-               ->pluck('total','d_f_equipe')
-               ->all();
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function equipeMembre($id)
-    {
-      return response()->json(['data' => Equipe::
-               join('membres','membres.equipe_id','=','equipes.id')
-               ->join('users','users.id','=','user_id')
-               ->select('users.id','users.name','users.email','users.telephone','users.sexe','users.role','users.created_at')
-               ->where('chef_equipe','=',$id)->get()
-               ->all()]);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function equipeMembreById($id)
-    {
-        ///return Equipe::where('equipe_id', '1')->
-        return Equipe::
-               join('membres','membres.equipe_id','=','equipes.id')
-               ->join('users','users.id','=','user_id')
-               ->select('users.id','users.name','users.email','users.telephone','users.sexe','users.created_at')
-               ->where('equipe_id','=',$id)->get()
-               ->all();
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        return response()->json([
+            'count' => Equipe::count()
+        ]);
     }
 
     /**
@@ -152,21 +79,20 @@ class EquipesController extends Controller
      */
     public function update(Request $request, $id)
     {
-      if (empty(request('d_f_equipe')) || empty(request('mail')) || empty(request('telephone')) )
-        $this->messages['fields'] = 'you can not use a empty value !';
-
-      //if (Equipe::where('mail','=',request('mail'))->exists())
-      //  $this->messages['mail'] = 'email allready exists !';
-
-      //if (Equipe::where('telephone','=',request('telephone'))->exists())
-      //  $this->messages['telephone'] = 'telephone allready exists !';
-    
-      if (empty($this->messages)) {
-        $equipe = Equipe::findOrFail($id);
-        $equipe->update($request->all());
-        return $equipe;
-      }
-      return response()->json(['errors' => $this->messages]);
+        try {
+            $equipe = Equipe::find($id);
+            if( ! $equipe )
+                return response()->json(['error' => 'this equipe doesn\'t exists']);
+            $equipe->update([
+                'd_f_equipe' => $request->d_f_equipe,
+                'mail' => $request->mail,
+                'telephone' => $request->telephone,
+                'chef_equipe' => $request->chef_equipe
+            ]);
+            return response()->json(['message' => 'equipe updated successfully !']);
+        } catch (Exception $e) {
+            return response()->json(['error' => 'error.']);
+        }
     }
 
     /**
@@ -177,10 +103,14 @@ class EquipesController extends Controller
      */
     public function destroy($id)
     {
-        
-        $equipe = Equipe::findOrFail($id);
-        $equipe->delete();
-
-        return 204;
+        try {
+            $equipe = Equipe::find($id);
+            if( ! $equipe )
+                return response()->json(['error' => 'error.']);
+            $equipe->delete();
+            return response()->json(['message' => 'equipe deleted suucessfully !']);
+        } catch (Exception $e) {
+            return response()->json(['error' => 'error.']);
+        }
     }
 }
