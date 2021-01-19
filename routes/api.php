@@ -30,7 +30,7 @@ Route::group([
     Route::post('logout', 'AuthController@logout');
     Route::post('refresh', 'AuthController@refresh');
     Route::post('me', 'AuthController@me');
-    
+
     // equipe route
     Route::get('equipe', 'EquipesController@index');
     Route::get('equipe/{id}', 'EquipesController@show');
@@ -117,20 +117,13 @@ Route::group([
     Route::put('image/{id}', 'ImagesController@update');
     Route::delete('image/{id}', 'ImagesController@destroy');
 
-    // Users route
-    Route::get('user', 'UsersController@index');
-    Route::get('user/{id}', 'UsersController@show');
-    Route::get('allChefsHasNoIntervention', 'UsersController@allChefsHasNoIntervention');
-    Route::get('allAtssHasNoInvitationInTeam', 'UsersController@allAtssHasNoInvitationInTeam');
-    Route::get('allChefsHasNoInformer/{id}', 'UsersController@allChefsHasNoInformer');
-    Route::get('listOfManagersAndChefs', 'UsersController@ListOfManagersAndChefs');
-    Route::get('usercount', 'UsersController@userCount');
-    Route::get('usercountbyrole/{role}', 'UsersController@userCountByRole');
-    Route::get('showuerbyrole/{role}', 'UsersController@showUserByRole');
-    Route::get('userroledashboard', 'UsersController@userRoleDashboard');
-    Route::post('user', 'UsersController@store');
-    Route::put('user/{id}', 'UsersController@update');
-    Route::delete('user/{id}', 'UsersController@destroy');
+    // User route
+    Route::get('/', 'UsersController@index');
+    Route::get('show/{id}', 'UsersController@show');
+    Route::get('count', 'UsersController@count');
+    Route::post('store', 'UsersController@store');
+    Route::post('update/{id}', 'UsersController@update');
+    Route::post('delete/{id}', 'UsersController@destroy');
 
     // Messages route
     Route::get('message', 'MessagesController@index');

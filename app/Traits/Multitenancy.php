@@ -7,10 +7,10 @@ trait Multitenancy {
     public static function bootMultitenancy()
     {
         static::creating(function($model){
-            $model->id = 12;
+            $model->user_id = 1;
         });
-        static::addGlobalScope('id',function ($builder){
-            return $builder->where('id',12);
+        static::addGlobalScope('user_id',function ($builder){
+            return $builder->where('user_id',1);
         });
     }
 }
