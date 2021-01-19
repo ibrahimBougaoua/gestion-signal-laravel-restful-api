@@ -9,9 +9,6 @@ use App\Informer;
 
 class InformersController extends Controller
 {
-
-    protected $messages = array();
-    
     /**
      * Display a listing of the resource.
      *
@@ -19,17 +16,9 @@ class InformersController extends Controller
      */
     public function index()
     {
-        return Informer::all();
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return response()->json(
+            Informer::all()
+        );
     }
 
     /**
@@ -40,17 +29,16 @@ class InformersController extends Controller
      */
     public function store(Request $request)
     {
-      if (empty(request('gest_id')) || empty(request('chef_id')) || empty(request('signalisation_id')) )
-        $this->messages['fields'] = 'you can not use a empty value !';
-
-      if (Informer::where([['chef_id','=',request('chef_id')],['signalisation_id','=',request('signalisation_id')]])->exists())
-        $this->messages['signalisation_id'] = 'signalisation allready exists !';
-
-      if (empty($this->messages)) {
-        $informer = Informer::create($request->all());
-        return response()->json($informer, 201);
-      }
-      return response()->json(['errors' => $this->messages]);
+        try {
+            Informer::create([
+                'gest_id' => $request->gest_id,
+                'chef_id' => $request->chef_id,
+                'signalisation_id' => $request->user_id
+            ]);
+            return response()->json(['message' => 'informer added successfully !'], 201);
+        } catch (Exception $e) {
+            return response()->json(['error' => 'error.']);
+        }
     }
 
     /**
@@ -61,32 +49,14 @@ class InformersController extends Controller
      */
     public function show($id)
     {
-        return Informer::where('signalisation_id', $id)->first();
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function allChefsHasInformer($signalisation_id) // message(7,6) or message(6,7)
-    { // gest_id == user_id
-        //return Informer::where([['gest_id', JWTAuth::parseToken()->toUser()->id],['signalisation_id', $id]])->join('users','users.id','=','informers.gest_id')->first();
-       return response()->json(['data' => Informer::join('users','users.id','=','informers.chef_id')
-                                          ->where('signalisation_id',$signalisation_id)->get()
-                               ], 201);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        try {
+            $informer = Informer::where('signalisation_id', $id)->get();
+            if( ! $informer )
+                return response()->json(['error' => 'informer doesn\'t exisits .']);
+            return response()->json($informer);
+        } catch (Exception $e) {
+            return response()->json(['error' => 'error.']);
+        }
     }
 
     /**
@@ -98,7 +68,19 @@ class InformersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        return Informer::where('signalisation_id', $id)->update($request->all());
+        try {
+            $informer = Informer::where('signalisation_id', $id);
+            if( ! $informer )
+                return response()->json(['error' => 'this informer doesn\'t exists']);
+            $informer->update([
+                'gest_id' => $request->gest_id,
+                'chef_id' => $request->chef_id,
+                'signalisation_id' => $request->signalisation_id
+            ]);
+            return response()->json(['message' => 'informer updated successfully !']);
+        } catch (Exception $e) {
+            return response()->json(['error' => 'error.']);
+        }
     }
 
     /**
@@ -109,21 +91,14 @@ class InformersController extends Controller
      */
     public function destroy($id)
     {
-        
-        $informer = Informer::where('signalisation_id', $id)->delete();
-        return 204;
+        try {
+            $informer = Informer::where('signalisation_id',$id);
+            if( ! $informer )
+                return response()->json(['error' => 'error.']);
+            $informer->delete();
+            return response()->json(['message' => 'informer deleted suucessfully !']);
+        } catch (Exception $e) {
+            return response()->json(['error' => 'error.']);
+        }
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function deleteChefInformer($chef_id, $signalisation_id)
-    {
-        $informer = Informer::where('chef_id',$chef_id)->Where('signalisation_id',$signalisation_id)->delete();
-        return 204;
-    }
-
 }

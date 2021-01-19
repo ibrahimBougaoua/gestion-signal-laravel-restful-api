@@ -47,13 +47,11 @@ Route::group([
     Route::post('destroy/{id}', 'EvaluersController@destroy');
 
     // Informer route
-    Route::get('informer', 'InformersController@index');
-    Route::get('informer/{id}', 'InformersController@show');
-    Route::get('allChefsHasInformer/{id}', 'InformersController@allChefsHasInformer');
-    Route::post('informer', 'InformersController@store');
-    Route::put('informer/{id}', 'InformersController@update');
-    Route::delete('informer/{id}', 'InformersController@destroy');
-    Route::delete('deleteChefInformer/{id}/signalisation_id/{ids}', 'InformersController@deleteChefInformer');
+    Route::get('index', 'InformersController@index');
+    Route::get('show/{id}', 'InformersController@show');
+    Route::post('store', 'InformersController@store');
+    Route::post('update/{id}', 'InformersController@update');
+    Route::post('destroy/{id}', 'InformersController@destroy');
 
     // Intervention route
     Route::get('intervention', 'InterventionsController@index');
