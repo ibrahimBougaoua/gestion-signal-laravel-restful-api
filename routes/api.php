@@ -40,13 +40,11 @@ Route::group([
     Route::post('delete/{id}', 'EquipesController@destroy');
 
     // Evaluer route
-    Route::get('evaluer', 'EvaluersController@index');
-    Route::get('evaluer/{id}', 'EvaluersController@show');
-    Route::get('ifevaluer/{id}', 'EvaluersController@ifEvaluer');
-    Route::get('chefintervention/{id}', 'EvaluersController@chefIntervention');
-    Route::post('evaluer', 'EvaluersController@store');
-    Route::put('evaluer/{id}', 'EvaluersController@update');
-    Route::delete('evaluer/{id}', 'EvaluersController@destroy');
+    Route::get('index', 'EvaluersController@index');
+    Route::get('show/{id}', 'EvaluersController@show');
+    Route::post('store', 'EvaluersController@store');
+    Route::post('update/{id}', 'EvaluersController@update');
+    Route::post('destroy/{id}', 'EvaluersController@destroy');
 
     // Informer route
     Route::get('informer', 'InformersController@index');
