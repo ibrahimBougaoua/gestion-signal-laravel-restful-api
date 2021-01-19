@@ -8,10 +8,7 @@ use App\Intervention;
 use App\Evaluer;
 
 class InterventionsController extends Controller
-{    
-
-    protected $messages = array();
-
+{
     /**
      * Display a listing of the resource.
      *
@@ -19,18 +16,9 @@ class InterventionsController extends Controller
      */
     public function index()
     {
-        return response()->json(['data' => Intervention::join('images','images.signalisation_id','=','interventions.signalisation_id')
-               ->select('images.name','interventions.id','interventions.signalisation_id','interventions.price','interventions.etat_avancement','interventions.date_debut','interventions.date_fin','interventions.created_at')->orderBy('id', 'desc')->get()]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return response()->json(
+            Intervention::get()
+        );
     }
 
     /**
@@ -41,14 +29,18 @@ class InterventionsController extends Controller
      */
     public function store(Request $request)
     {
-      if (empty(request('signalisation_id')) || empty(request('price')) || empty(request('etat_avancement')) || empty(request('date_debut')) || empty(request('date_fin')) )
-        $this->messages['fields'] = 'you can not use a empty value !';
-    
-      if (empty($this->messages)) {
-        $interventions = Intervention::create($request->all());
-        return response()->json($interventions, 201);
-      }
-      return response()->json(['errors' => $this->messages]);
+        try {
+            Intervention::create([
+                'signalisation_id' => $request->signalisation_id,
+                'price' => $request->price,
+                'etat_avancement' => $request->etat_avancement,
+                'date_debut' => $request->date_debut,
+                'date_fin' => $request->date_fin
+            ]);
+            return response()->json(['message' => 'Intervention added successfully !'], 201);
+        } catch (Exception $e) {
+            return response()->json(['error' => 'error.']);
+        }
     }
 
     /**
@@ -59,30 +51,14 @@ class InterventionsController extends Controller
      */
     public function show($id)
     {
-        return response()->json(['data' => Intervention::where('id', $id)->first()]);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function interventionCountDashbordById($chef_id)
-    {
-      return response()->json(['data' => Intervention::join('signalisations','signalisations.id','=','signalisation_id')->join('evaluers','evaluers.intervention_id','=','interventions.id')->where('user_id', $chef_id)
-               ->count()]);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        try {
+            $intervention = Intervention::find($id);
+            if( ! $intervention )
+                return response()->json(['error' => 'intervention doesn\'t exisits .']);
+            return response()->json($intervention);
+        } catch (Exception $e) {
+            return response()->json(['error' => 'error.']);
+        }
     }
 
     /**
@@ -94,7 +70,22 @@ class InterventionsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        return response()->json(['success' => Intervention::where('id', $id)->update($request->all()),'message' => 'Intervention updated successfully !']);
+
+        try {
+            $intervention = Intervention::find($id);
+            if( ! $intervention )
+                return response()->json(['error' => 'this intervention doesn\'t exists']);
+            $intervention->update([
+                'signalisation_id' => $request->signalisation_id,
+                'price' => $request->price,
+                'etat_avancement' => $request->etat_avancement,
+                'date_debut' => $request->date_debut,
+                'date_fin' => $request->date_fin
+            ]);
+            return response()->json(['message' => 'intervention updated successfully !']);
+        } catch (Exception $e) {
+            return response()->json(['error' => 'error.']);
+        }
     }
 
     /**
@@ -105,8 +96,14 @@ class InterventionsController extends Controller
      */
     public function destroy($id)
     {
-        
-        $interventions = Intervention::where('id', $id)->delete();
-        return 204;
+        try {
+            $intervention = Intervention::find($id);
+            if( ! $intervention )
+                return response()->json(['error' => 'error.']);
+            $intervention->delete();
+            return response()->json(['message' => 'intervention deleted suucessfully !']);
+        } catch (Exception $e) {
+            return response()->json(['error' => 'error.']);
+        }
     }
 }
