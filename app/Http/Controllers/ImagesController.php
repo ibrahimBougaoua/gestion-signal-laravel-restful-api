@@ -14,17 +14,9 @@ class ImagesController extends Controller
      */
     public function index()
     {
-        return Images::all();
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return response()->json(
+            Images::all()
+        );
     }
 
     /**
@@ -69,17 +61,6 @@ class ImagesController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -88,7 +69,17 @@ class ImagesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        return Images::where('signalisation_id', $id)->update($request->all());
+        try {
+            $image = Images::where('id', $id);
+            if( ! $image )
+                return response()->json(['error' => 'this image doesn\'t exists']);
+            $image->update([
+                'intervention_id' => $request->intervention_id
+            ]);
+            return response()->json(['message' => 'evaluer updated successfully !']);
+        } catch (Exception $e) {
+            return response()->json(['error' => 'error.']);
+        }
     }
 
     /**
@@ -99,8 +90,14 @@ class ImagesController extends Controller
      */
     public function destroy($id)
     {
-        
-        $images = Images::where('signalisation_id', $id)->delete();
-        return 204;
+        try {
+            $image = Images::where('id', $id);
+            if( ! $image )
+                return response()->json(['error' => 'error.']);
+            $image->delete();
+            return response()->json(['message' => 'image deleted suucessfully !']);
+        } catch (Exception $e) {
+            return response()->json(['error' => 'error.']);
+        }
     }
 }

@@ -105,12 +105,12 @@ Route::group([
     Route::put('signalisation/{id}', 'SignalisationsController@update');
     Route::delete('signalisation/{id}', 'SignalisationsController@destroy');
 
-    // Images route
-    Route::get('image', 'ImagesController@index');
-    Route::get('image/{id}', 'ImagesController@show');
-    Route::post('image', 'ImagesController@store');
-    Route::put('image/{id}', 'ImagesController@update');
-    Route::delete('image/{id}', 'ImagesController@destroy');
+    // Image route
+    Route::get('index', 'ImagesController@index');
+    Route::get('show/{id}', 'ImagesController@show');
+    Route::post('store', 'ImagesController@store');
+    Route::post('update/{id}', 'ImagesController@update');
+    Route::post('destroy/{id}', 'ImagesController@destroy');
 
     // User route
     Route::get('/', 'UsersController@index');
