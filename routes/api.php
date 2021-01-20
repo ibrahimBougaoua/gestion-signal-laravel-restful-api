@@ -70,15 +70,11 @@ Route::group([
     Route::delete('deleteAllMembre/{id}', 'MembresController@deleteAllMembre');
 
     // Signaler route
-    Route::get('signaler', 'SignalersController@index');
-    Route::get('signaler/{id}', 'SignalersController@show');
-    Route::get('signalercount/{id}', 'SignalersController@signalerCount');
-    Route::get('signalisationdashboard', 'SignalersController@SignalisationDashboard');
-    Route::get('usersignalisationdashboard/{id}', 'SignalersController@userSignalisationDashboard');
-    Route::post('signaler', 'SignalersController@store');
-    Route::put('signaler/{id}', 'SignalersController@update');
-    Route::delete('signaler/{id}', 'SignalersController@destroy');
-    Route::delete('deleteAllSignales/{id}', 'SignalersController@deleteAllSignales');
+    Route::get('index', 'SignalersController@index');
+    Route::get('show/{id}', 'SignalersController@show');
+    Route::post('store', 'SignalersController@store');
+    Route::post('update/{id}', 'SignalersController@update');
+    Route::post('delete/{id}', 'SignalersController@destroy');
 
     // Signalisation route
     Route::get('index', 'SignalisationsController@index');

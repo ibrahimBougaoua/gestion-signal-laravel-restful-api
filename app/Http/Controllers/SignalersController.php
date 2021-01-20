@@ -5,13 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Signaler;
-use App\Signalisation;
 
 class SignalersController extends Controller
-{    
-
-    protected $messages = array();
-
+{
     /**
      * Display a listing of the resource.
      *
@@ -19,17 +15,9 @@ class SignalersController extends Controller
      */
     public function index()
     {
-        return Signaler::all();
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return response()->json(
+            Signaler::all()
+        );
     }
 
     /**
@@ -40,17 +28,15 @@ class SignalersController extends Controller
      */
     public function store(Request $request)
     {
-      if (empty(request('user_id')) || empty(request('signalisation_id')) )
-        $this->messages['fields'] = 'you can not use a empty value !';
-
-      if (Signaler::where([['user_id','=',request('user_id')],['signalisation_id','=',request('signalisation_id')]])->exists())
-        $this->messages['user_id'] = 'user allready exists !';
-
-      if (empty($this->messages)) {
-        $signaler = Signaler::create($request->all());
-        return response()->json(['success' => $signaler,'message' => 'Signalisation added successfully !']);
-      }
-      return response()->json(['errors' => $this->messages]);
+        try {
+            Signaler::create([
+                'user_id' => $this->user_id,
+                'signalisation_id' => $this->signalisation_id
+            ]);
+            return response()->json(['message' => 'Signaler added successfully !'], 201);
+        } catch (Exception $e) {
+            return response()->json(['error' => 'error.']);
+        }
     }
 
     /**
@@ -61,61 +47,14 @@ class SignalersController extends Controller
      */
     public function show($id)
     {
-        return Signaler::where('user_id', $id)->first();
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function signalerCount($id)
-    {
-        return Signaler::where('user_id', $id)->count();
-    }
-
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function SignalisationDashboard()
-    {
-        $data = Signaler::join('signalisations','signalisations.id','=','signalers.signalisation_id')
-               ->select('nature',DB::raw('count(*) as total'))
-               ->groupBy('nature')
-               ->pluck('total','nature')
-               ->all();
-        return $data;
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function userSignalisationDashboard($user_id)
-    {
-        return Signaler::where('user_id', '7')
-               ->select('user_id',DB::raw('count(*) as total'))
-               ->groupBy('user_id')
-               ->pluck('total','user_id')
-               ->all();
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        try {
+            $signaler = Signaler::where('signalisation_id', $id)->first();
+            if( ! $signaler )
+                return response()->json(['error' => 'signaler doesn\'t exisits .']);
+            return response()->json($signaler);
+        } catch (Exception $e) {
+            return response()->json(['error' => 'error.']);
+        }
     }
 
     /**
@@ -127,20 +66,18 @@ class SignalersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        return Signaler::where('user_id', $id)->update($request->all());
-    }
-    
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function deleteAllSignales($id)
-    {
-        
-        $signaler = Signaler::where('signalisation_id', $id)->delete();
-        return 204;
+        try {
+            $signaler = Signaler::where('signalisation_id', $id)->first();
+            if( ! $signaler )
+                return response()->json(['error' => 'this signaler doesn\'t exists']);
+            $signaler->update([
+                'user_id' => $this->user_id,
+                'signalisation_id' => $this->signalisation_id
+            ]);
+            return response()->json(['message' => 'signalisation updated successfully !']);
+        } catch (Exception $e) {
+            return response()->json(['error' => 'error.']);
+        }
     }
 
     /**
@@ -151,9 +88,15 @@ class SignalersController extends Controller
      */
     public function destroy($id)
     {
-        
-        $signaler = Signaler::where('user_id', $id)->delete();
-        return 204;
+        try {
+            $signaler = Signaler::where('signalisation_id', $id)->first();
+            if( ! $signaler )
+                return response()->json(['error' => 'error.']);
+            $signaler->delete();
+            return response()->json(['message' => 'signaler deleted suucessfully !']);
+        } catch (Exception $e) {
+            return response()->json(['error' => 'error.']);
+        }
     }
 
 }
