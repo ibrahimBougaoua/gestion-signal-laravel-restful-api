@@ -81,25 +81,11 @@ Route::group([
     Route::delete('deleteAllSignales/{id}', 'SignalersController@deleteAllSignales');
 
     // Signalisation route
-    Route::get('signalisation', 'SignalisationsController@index');
-    Route::get('signalisationHasEnding', 'SignalisationsController@signalisationHasEnding');
-    Route::get('signalisationTrash', 'SignalisationsController@trash');
-    Route::get('allSignalisation', 'SignalisationsController@all');
-    Route::get('signalisation/{id}', 'SignalisationsController@show');
-    Route::get('signalisationsByAuthor/{id}', 'SignalisationsController@signalisationsByAuthor');
-    Route::get('search', 'SignalisationsController@searchByValue');
-    Route::get('signalisationcount', 'SignalisationsController@signalisationCount');
-    Route::get('signalisationcommentsdashboard', 'SignalisationsController@SignalisationCommentsDashboard');
-    Route::get('allSignalisationByUserIdCountDashboard/{id}', 'SignalisationsController@allSignalisationByUserIdCountDashboard');
-    Route::get('trashSignalisationByUserIdCountDashboard/{id}', 'SignalisationsController@trashSignalisationByUserIdCountDashboard');
-    Route::get('SignalisationCompleteByUserIdCountDashboard/{id}', 'SignalisationsController@SignalisationCompleteByUserIdCountDashboard');
-    Route::get('SignalisationCompleteByLeaderCountDashboard/{id}', 'SignalisationsController@SignalisationCompleteByLeaderCountDashboard');
-    Route::get('signalisationetatavancementdashboard', 'SignalisationsController@SignalisationEtatAvancementDashboard');
-    Route::get('allsignalercount', 'SignalisationsController@allSignalerCount');
-    Route::get('allsignalisationbyuserid/{id}', 'SignalisationsController@allSignalisationByUserId');
-    Route::post('signalisation', 'SignalisationsController@store');
-    Route::put('signalisation/{id}', 'SignalisationsController@update');
-    Route::delete('signalisation/{id}', 'SignalisationsController@destroy');
+    Route::get('index', 'SignalisationsController@index');
+    Route::get('show/{id}', 'SignalisationsController@show');
+    Route::post('store', 'SignalisationsController@store');
+    Route::post('update/{id}', 'SignalisationsController@update');
+    Route::post('delete/{id}', 'SignalisationsController@destroy');
 
     // Image route
     Route::get('index', 'ImagesController@index');
