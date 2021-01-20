@@ -14,17 +14,9 @@ class MembresController extends Controller
      */
     public function index()
     {
-        return Membre::all();
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return response()->json(
+            Membre::all()
+        );
     }
 
     /**
@@ -35,8 +27,15 @@ class MembresController extends Controller
      */
     public function store(Request $request)
     {
-        $membre = Membre::create($request->all());
-        return response()->json($membre, 201);
+        try {
+            Membre::create([
+                'user_id' => $this->user_id,
+                'equipe_id' => $this->equipe_id
+            ]);
+            return response()->json(['message' => 'Membre added successfully !'], 201);
+        } catch (Exception $e) {
+            return response()->json(['error' => 'error.']);
+        }
     }
 
     /**
@@ -47,34 +46,14 @@ class MembresController extends Controller
      */
     public function show($id)
     {
-        return Membre::where('equipe_id', $id)->first();
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function membreCountDashboard($user_id)
-    {
-        //if (Membre::where('user_id','=',$user_id)->exists())
-            $equipe_id = Membre::where('user_id',$user_id)->get();
-            $equipe_id = $equipe_id[0];
-            $obj = json_decode($equipe_id);
-            return response()->json(['data' => Membre::where('equipe_id','=',$obj->equipe_id)->count() - 1]);
-        //return response()->json(['data' => 0]);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        try {
+            $signaler = Membre::where('user_id', $id)->first();
+            if( ! $signaler )
+                return response()->json(['error' => 'Membre doesn\'t exisits .']);
+            return response()->json($signaler);
+        } catch (Exception $e) {
+            return response()->json(['error' => 'error.']);
+        }
     }
 
     /**
@@ -86,7 +65,18 @@ class MembresController extends Controller
      */
     public function update(Request $request, $id)
     {
-        return Membre::where('user_id', $id)->update($request->all());
+        try {
+            $membre = Membre::where('user_id', $id);
+            if( ! $membre )
+                return response()->json(['error' => 'this membre doesn\'t exists']);
+            $membre->update([
+                'user_id' => $this->user_id,
+                'equipe_id' => $this->equipe_id
+            ]);
+            return response()->json(['message' => 'membre updated successfully !']);
+        } catch (Exception $e) {
+            return response()->json(['error' => 'error.']);
+        }
     }
 
     /**
@@ -97,22 +87,14 @@ class MembresController extends Controller
      */
     public function destroy($id)
     {
-        
-        $membre = Membre::where('user_id', $id)->delete();
-        return 204;
+        try {
+            $membre = Membre::where('user_id', $id)->first();
+            if( ! $membre )
+                return response()->json(['error' => 'error.']);
+            $membre->delete();
+            return response()->json(['message' => 'membre deleted suucessfully !']);
+        } catch (Exception $e) {
+            return response()->json(['error' => 'error.']);
+        }
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function deleteAllMembre($id)
-    {
-        
-        $membre = Membre::where('equipe_id', $id)->delete();
-        return 204;
-    }
-
 }

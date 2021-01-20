@@ -61,13 +61,11 @@ Route::group([
     Route::post('destroy/{id}', 'InterventionsController@destroy');
 
     // Membre route
-    Route::get('membre', 'MembresController@index');
-    Route::get('membre/{id}', 'MembresController@show');
-    Route::get('membrecountdashboard/{id}', 'MembresController@membreCountDashboard');
-    Route::post('membre', 'MembresController@store');
-    Route::put('membre/{id}', 'MembresController@update');
-    Route::delete('membre/{id}', 'MembresController@destroy');
-    Route::delete('deleteAllMembre/{id}', 'MembresController@deleteAllMembre');
+    Route::get('index', 'MembresController@index');
+    Route::get('show/{id}', 'MembresController@show');
+    Route::post('store', 'MembresController@store');
+    Route::post('update/{id}', 'MembresController@update');
+    Route::post('delete/{id}', 'MembresController@destroy');
 
     // Signaler route
     Route::get('index', 'SignalersController@index');
