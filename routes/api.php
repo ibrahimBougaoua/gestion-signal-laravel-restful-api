@@ -99,12 +99,11 @@ Route::group([
     Route::post('delete/{id}', 'UsersController@destroy');
 
     // Messages route
-    Route::get('message', 'MessagesController@index');
-    Route::get('message/{id}', 'MessagesController@show');
-    Route::get('messages/{id}', 'MessagesController@showMessage');
-    Route::post('message', 'MessagesController@store');
-    Route::put('message/{id}', 'MessagesController@update');
-    Route::delete('message/{id}', 'MessagesController@destroy');
+    Route::get('index', 'MessagesController@index');
+    Route::get('show/{id}', 'MessagesController@show');
+    Route::post('store', 'MessagesController@store');
+    Route::post('update/{id}', 'MessagesController@update');
+    Route::post('delete/{id}', 'MessagesController@destroy');
 
     // Comment route
     Route::get('index', 'CommentsController@index');

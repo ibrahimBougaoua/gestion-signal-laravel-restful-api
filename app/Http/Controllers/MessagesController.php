@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Tymon\JWTAuth\Contracts\JWTSubject;
 use JWTAuth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -10,9 +9,6 @@ use App\Messages;
 
 class MessagesController extends Controller
 {
-    
-    protected $messages = array();
-
     /**
      * Display a listing of the resource.
      *
@@ -20,17 +16,9 @@ class MessagesController extends Controller
      */
     public function index()
     {
-        return Messages::all();
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return response()->json(
+            Messages::all()
+        );
     }
 
     /**
@@ -41,14 +29,16 @@ class MessagesController extends Controller
      */
     public function store(Request $request)
     {
-      if (empty(request('send_user_id')) || empty(request('catch_user_id')) || empty(request('message')) )
-        $this->messages['fields'] = 'you can not use a empty value !';
-
-      if (empty($this->messages)) {
-        $messages = Messages::create($request->all());
-        return response()->json(['success' => $messages], 201);
-      }
-      return response()->json(['errors' => $this->messages]);
+        try {
+            Messages::create([
+                'send_user_id' => $this->send_user_id,
+                'catch_user_id' => $this->catch_user_id,
+                'message' => $this->message
+            ]);
+            return response()->json(['message' => 'Message added successfully !'], 201);
+        } catch (Exception $e) {
+            return response()->json(['error' => 'error.']);
+        }
     }
 
     /**
@@ -59,29 +49,14 @@ class MessagesController extends Controller
      */
     public function show($id)
     {
-        return Messages::where('id', $id)->first();
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function showMessage($id) // message(7,6) or message(6,7)
-    {
-        return Messages::where([['send_user_id', JWTAuth::parseToken()->toUser()->id],['catch_user_id', $id]])->orWhere([['send_user_id', $id],['catch_user_id', JWTAuth::parseToken()->toUser()->id]])->get();
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        try {
+            $message = Messages::find($id);
+            if( ! $message )
+                return response()->json(['error' => 'message doesn\'t exisits .']);
+            return response()->json($message);
+        } catch (Exception $e) {
+            return response()->json(['error' => 'error.']);
+        }
     }
 
     /**
@@ -93,13 +68,19 @@ class MessagesController extends Controller
      */
     public function update(Request $request, $id)
     {
-      if ( empty(request('message')) )
-        $this->messages['fields'] = 'you can not use a empty value !';
-
-      if (empty($this->messages)) {
-        return Messages::where('id', $id)->update($request->all());
-      }
-      return response()->json(['errors' => $this->messages]);
+        try {
+            $message = Messages::find($id);
+            if( ! $message )
+                return response()->json(['error' => 'this message doesn\'t exists']);
+            $message->update([
+                'send_user_id' => $this->send_user_id,
+                'catch_user_id' => $this->catch_user_id,
+                'message' => $this->message
+            ]);
+            return response()->json(['message' => 'message updated successfully !']);
+        } catch (Exception $e) {
+            return response()->json(['error' => 'error.']);
+        }
     }
 
     /**
@@ -110,8 +91,14 @@ class MessagesController extends Controller
      */
     public function destroy($id)
     {
-        
-        $messages = Messages::where('id', $id)->delete();
-        return 204;
+        try {
+            $message = Messages::find($id);
+            if( ! $message )
+                return response()->json(['error' => 'error.']);
+            $message->delete();
+            return response()->json(['message' => 'message deleted suucessfully !']);
+        } catch (Exception $e) {
+            return response()->json(['error' => 'error.']);
+        }
     }
 }
