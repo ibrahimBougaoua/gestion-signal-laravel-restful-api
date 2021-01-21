@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SignalisationRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Signalisation;
@@ -26,7 +27,7 @@ class SignalisationsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(SignalisationRequest $request)
     {
         try {
             Signalisation::create([

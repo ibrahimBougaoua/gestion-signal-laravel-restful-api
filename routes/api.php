@@ -75,11 +75,13 @@ Route::group([
     Route::post('delete/{id}', 'SignalersController@destroy');
 
     // Signalisation route
-    Route::get('index', 'SignalisationsController@index');
-    Route::get('show/{id}', 'SignalisationsController@show');
-    Route::post('store', 'SignalisationsController@store');
-    Route::post('update/{id}', 'SignalisationsController@update');
-    Route::post('delete/{id}', 'SignalisationsController@destroy');
+    Route::group(['prefix' => 'signalisation'],function() {
+        Route::get('index', 'SignalisationsController@index');
+        Route::get('show/{id}', 'SignalisationsController@show');
+        Route::post('store', 'SignalisationsController@store');
+        Route::post('update/{id}', 'SignalisationsController@update');
+        Route::post('delete/{id}', 'SignalisationsController@destroy');
+    });
 
     // Image route
     Route::get('index', 'ImagesController@index');
