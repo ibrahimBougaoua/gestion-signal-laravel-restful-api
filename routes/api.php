@@ -32,12 +32,14 @@ Route::group([
     Route::post('me', 'AuthController@me');
 
     // Equipe route
-    Route::get('index', 'EquipesController@index');
-    Route::get('show/{id}', 'EquipesController@show');
-    Route::get('count', 'EquipesController@count');
-    Route::post('store', 'EquipesController@store');
-    Route::post('update/{id}', 'EquipesController@update');
-    Route::post('delete/{id}', 'EquipesController@destroy');
+    Route::group(['prefix' => 'equipe'],function() {
+        Route::get('index', 'EquipesController@index');
+        Route::get('show/{id}', 'EquipesController@show');
+        Route::get('count', 'EquipesController@count');
+        Route::post('store', 'EquipesController@store');
+        Route::post('update/{id}', 'EquipesController@update');
+        Route::post('delete/{id}', 'EquipesController@destroy');
+    });
 
     // Evaluer route
     Route::get('index', 'EvaluersController@index');
