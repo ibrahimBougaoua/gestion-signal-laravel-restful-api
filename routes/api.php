@@ -112,10 +112,12 @@ Route::group([
     });
 
     // Comment route
-    Route::get('index', 'CommentsController@index');
-    Route::get('show/{id}', 'CommentsController@show');
-    Route::post('store', 'CommentsController@store');
-    Route::post('update/{id}', 'CommentsController@update');
-    Route::post('delete/{id}', 'CommentsController@destroy');
+    Route::group(['prefix' => 'comment'],function() {
+        Route::get('index', 'CommentsController@index');
+        Route::get('show/{id}', 'CommentsController@show');
+        Route::post('store', 'CommentsController@store');
+        Route::post('update/{id}', 'CommentsController@update');
+        Route::post('delete/{id}', 'CommentsController@destroy');
+    });
 
 });
