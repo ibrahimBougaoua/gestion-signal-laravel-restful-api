@@ -101,11 +101,13 @@ Route::group([
     });
 
     // Messages route
-    Route::get('index', 'MessagesController@index');
-    Route::get('show/{id}', 'MessagesController@show');
-    Route::post('store', 'MessagesController@store');
-    Route::post('update/{id}', 'MessagesController@update');
-    Route::post('delete/{id}', 'MessagesController@destroy');
+    Route::group(['prefix' => 'message'],function() {
+        Route::get('index', 'MessagesController@index');
+        Route::get('show/{id}', 'MessagesController@show');
+        Route::post('store', 'MessagesController@store');
+        Route::post('update/{id}', 'MessagesController@update');
+        Route::post('delete/{id}', 'MessagesController@destroy');
+    });
 
     // Comment route
     Route::get('index', 'CommentsController@index');
