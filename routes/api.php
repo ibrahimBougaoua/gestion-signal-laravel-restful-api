@@ -89,12 +89,14 @@ Route::group([
     Route::post('destroy/{id}', 'ImagesController@destroy');
 
     // User route
-    Route::get('/', 'UsersController@index');
-    Route::get('show/{id}', 'UsersController@show');
-    Route::get('count', 'UsersController@count');
-    Route::post('store', 'UsersController@store');
-    Route::post('update/{id}', 'UsersController@update');
-    Route::post('delete/{id}', 'UsersController@destroy');
+    Route::group(['prefix' => 'user'],function() {
+        Route::get('/', 'UsersController@index');
+        Route::get('show/{id}', 'UsersController@show');
+        Route::get('count', 'UsersController@count');
+        Route::post('store', 'UsersController@store');
+        Route::post('update/{id}', 'UsersController@update');
+        Route::post('delete/{id}', 'UsersController@destroy');
+    });
 
     // Messages route
     Route::get('index', 'MessagesController@index');

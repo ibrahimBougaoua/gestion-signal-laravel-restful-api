@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserRequest;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use JWTAuth;
 use Illuminate\Http\Request;
@@ -28,7 +29,7 @@ class UsersController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
         try {
           User::create([
