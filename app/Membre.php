@@ -2,10 +2,13 @@
 
 namespace App;
 
+use App\Traits\Multitenancy;
 use Illuminate\Database\Eloquent\Model;
 
 class Membre extends Model
 {
+    use Multitenancy;
+
     protected $fillable = [
         'user_id','equipe_id'
     ];
