@@ -3,6 +3,8 @@
 namespace App\Observers;
 
 use App\Signalisation;
+use App\Signaler;
+use Illuminate\Support\Facades\Auth;
 
 class SignalisationObserver
 {
@@ -14,7 +16,9 @@ class SignalisationObserver
      */
     public function created(Signalisation $signalisation)
     {
-        //
+        Signaler::create([
+            'signalisation_id' => $signalisation->id
+        ]);
     }
 
     /**
@@ -36,7 +40,8 @@ class SignalisationObserver
      */
     public function deleted(Signalisation $signalisation)
     {
-        //
+        $signaler = Signaler::where('signalisation_id',$signalisation->id);
+        $signaler->delete();
     }
 
     /**

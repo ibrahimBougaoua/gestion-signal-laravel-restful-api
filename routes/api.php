@@ -80,7 +80,7 @@ Route::group([
 
     // Signalisation route
     Route::group(['prefix' => 'signalisation'],function() {
-        Route::get('index', 'SignalisationsController@index');
+        Route::get('', 'SignalisationsController@index');
         Route::get('show/{id}', 'SignalisationsController@show');
         Route::post('store', 'SignalisationsController@store');
         Route::post('update/{id}', 'SignalisationsController@update');

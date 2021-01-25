@@ -29,6 +29,11 @@ class Signalisation extends Model
         'updated_at' => 'datetime:Y-m-d',
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+    }
+
     public function getInterventions()
     {
         return $this->hasMany('App\Intervention','signalisation_id','id');
@@ -38,7 +43,5 @@ class Signalisation extends Model
     {
         return $this->hasMany('App\Signaler','signalisation_id','id');
     }
-
-
 
 }

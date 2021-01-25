@@ -24,6 +24,7 @@ class SignalisationRequest extends FormRequest
     public function rules()
     {
         return [
+
             'desc' => 'required|string|max:150|min:15',
             'localisation' => 'required|string|max:50|min:5',
             'lieu' => 'required|string|max:50|min:5',

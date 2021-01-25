@@ -27,17 +27,15 @@ class SignalisationsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(SignalisationRequest $request)
+    public function store(Request $request)
     {
         try {
-            Signalisation::create([
-                'desc' => request('desc'),
-                'localisation' => request('localisation'),
-                'lieu' => request('lieu'),
-                'nature' => request('nature'),
-                'cause' => request('cause'),
-                'edit' => request('edit'),
-                'trash' => request('trash')
+            return Signalisation::create([
+                'desc' => $request->desc,
+                'localisation' => $request->localisation,
+                'lieu' => $request->lieu,
+                'nature' => $request->nature,
+                'cause' => $request->cause
             ]);
             return response()->json(['message' => 'Signalisation added successfully !'], 201);
         } catch (Exception $e) {
@@ -77,13 +75,12 @@ class SignalisationsController extends Controller
             if( ! $signalisation )
                 return response()->json(['error' => 'this signalisation doesn\'t exists']);
             $signalisation->update([
-                'desc' => request('desc'),
-                'localisation' => request('localisation'),
-                'lieu' => request('lieu'),
-                'nature' => request('nature'),
-                'cause' => request('cause'),
-                'edit' => request('edit'),
-                'trash' => request('trash')
+                'desc' => $request->desc,
+                'localisation' => $request->localisation,
+                'lieu' => $request->lieu,
+                'nature' => $request->nature,
+                'cause' => $request->cause,
+                'trash' => $request->trash
             ]);
             return response()->json(['message' => 'signalisation updated successfully !']);
         } catch (Exception $e) {
