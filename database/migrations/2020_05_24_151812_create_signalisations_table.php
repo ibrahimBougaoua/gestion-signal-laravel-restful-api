@@ -20,6 +20,7 @@ class CreateSignalisationsTable extends Migration
             $table->string('lieu')->nullable();
             $table->string('nature')->nullable();
             $table->string('cause')->nullable();
+            $table->unsignedInteger('nbr_signe')->nullable();
             $table->timestamps();
         });
     }

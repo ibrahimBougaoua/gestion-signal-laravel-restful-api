@@ -30,8 +30,7 @@ class SignalersController extends Controller
     {
         try {
             Signaler::create([
-                'user_id' => $this->user_id,
-                'signalisation_id' => $this->signalisation_id
+                'signalisation_id' => $request->signalisation_id
             ]);
             return response()->json(['message' => 'Signaler added successfully !'], 201);
         } catch (Exception $e) {
@@ -48,33 +47,10 @@ class SignalersController extends Controller
     public function show($id)
     {
         try {
-            $signaler = Signaler::where('signalisation_id', $id)->first();
+            $signaler = Signaler::where('signalisation_id', $id)->get();
             if( ! $signaler )
                 return response()->json(['error' => 'signaler doesn\'t exisits .']);
             return response()->json($signaler);
-        } catch (Exception $e) {
-            return response()->json(['error' => 'error.']);
-        }
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        try {
-            $signaler = Signaler::where('signalisation_id', $id)->first();
-            if( ! $signaler )
-                return response()->json(['error' => 'this signaler doesn\'t exists']);
-            $signaler->update([
-                'user_id' => $this->user_id,
-                'signalisation_id' => $this->signalisation_id
-            ]);
-            return response()->json(['message' => 'signalisation updated successfully !']);
         } catch (Exception $e) {
             return response()->json(['error' => 'error.']);
         }
@@ -89,7 +65,7 @@ class SignalersController extends Controller
     public function destroy($id)
     {
         try {
-            $signaler = Signaler::where('signalisation_id', $id)->first();
+            $signaler = Signaler::where('signalisation_id', $id);
             if( ! $signaler )
                 return response()->json(['error' => 'error.']);
             $signaler->delete();

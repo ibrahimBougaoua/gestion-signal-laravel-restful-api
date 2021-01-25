@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Signaler;
+use App\Signalisation;
 
 class SignalerObserver
 {
@@ -14,7 +15,10 @@ class SignalerObserver
      */
     public function created(Signaler $signaler)
     {
-        //
+        $signalisation = Signalisation::find($signaler->signalisation_id);
+        $signalisation->update([
+            'nbr_signe' => $signalisation->nbr_signe + 1
+        ]);
     }
 
     /**
@@ -36,7 +40,10 @@ class SignalerObserver
      */
     public function deleted(Signaler $signaler)
     {
-        //
+        $signalisation = Signalisation::find($signaler->signalisation_id);
+        $signalisation->update([
+            'nbr_signe' => $signalisation->nbr_signe - 1
+        ]);
     }
 
     /**

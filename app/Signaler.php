@@ -32,6 +32,11 @@ class Signaler extends Model
         'updated_at' => 'datetime:Y-m-d',
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+    }
+
     public function getChefTeam()
     {
         return $this->belongsTo('App\User','id','user_id');

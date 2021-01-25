@@ -72,11 +72,13 @@ Route::group([
     Route::post('delete/{id}', 'MembresController@destroy');
 
     // Signaler route
-    Route::get('index', 'SignalersController@index');
-    Route::get('show/{id}', 'SignalersController@show');
-    Route::post('store', 'SignalersController@store');
-    Route::post('update/{id}', 'SignalersController@update');
-    Route::post('delete/{id}', 'SignalersController@destroy');
+    Route::group(['prefix' => 'signaler'],function() {
+        Route::get('', 'SignalersController@index');
+        Route::get('show/{id}', 'SignalersController@show');
+        Route::post('store', 'SignalersController@store');
+        Route::post('update/{id}', 'SignalersController@update');
+        Route::post('delete/{id}', 'SignalersController@destroy');
+    });
 
     // Signalisation route
     Route::group(['prefix' => 'signalisation'],function() {
