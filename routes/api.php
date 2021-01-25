@@ -65,11 +65,13 @@ Route::group([
     });
 
     // Membre route
-    Route::get('index', 'MembresController@index');
-    Route::get('show/{id}', 'MembresController@show');
-    Route::post('store', 'MembresController@store');
-    Route::post('update/{id}', 'MembresController@update');
-    Route::post('delete/{id}', 'MembresController@destroy');
+    Route::group(['prefix' => 'membre'],function() {
+        Route::get('', 'MembresController@index');
+        Route::get('show/{id}', 'MembresController@show');
+        Route::post('store', 'MembresController@store');
+        Route::post('update/{id}', 'MembresController@update');
+        Route::post('delete/{id}', 'MembresController@destroy');
+    });
 
     // Signaler route
     Route::group(['prefix' => 'signaler'],function() {

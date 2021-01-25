@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Equipe;
+use App\User;
 use Illuminate\Http\Request;
 use App\Membre;
 
@@ -28,9 +30,13 @@ class MembresController extends Controller
     public function store(Request $request)
     {
         try {
+            $user = User::find($request->user_id);
+            if( ! $user )
+                return response()->json(['message' => 'this user doesn\'t exists !']);
+
             Membre::create([
-                'user_id' => $this->user_id,
-                'equipe_id' => $this->equipe_id
+                'user_id' => $request->user_id,
+                'equipe_id' => $request->equipe_id
             ]);
             return response()->json(['message' => 'Membre added successfully !'], 201);
         } catch (Exception $e) {
@@ -69,9 +75,13 @@ class MembresController extends Controller
             $membre = Membre::where('user_id', $id);
             if( ! $membre )
                 return response()->json(['error' => 'this membre doesn\'t exists']);
+
+            $team = Equipe::find($request->equipe_id);
+            if( ! $team )
+                return response()->json(['error' => 'this team doesn\'t exists']);
+
             $membre->update([
-                'user_id' => $this->user_id,
-                'equipe_id' => $this->equipe_id
+                'equipe_id' => $request->equipe_id
             ]);
             return response()->json(['message' => 'membre updated successfully !']);
         } catch (Exception $e) {
@@ -88,7 +98,7 @@ class MembresController extends Controller
     public function destroy($id)
     {
         try {
-            $membre = Membre::where('user_id', $id)->first();
+            $membre = Membre::where('user_id', $id);
             if( ! $membre )
                 return response()->json(['error' => 'error.']);
             $membre->delete();

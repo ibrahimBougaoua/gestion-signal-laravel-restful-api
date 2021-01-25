@@ -19,6 +19,7 @@ class CreateEquipesTable extends Migration
             $table->string('mail');
             $table->string('telephone');
             $table->unsignedInteger('chef_equipe');
+            $table->unsignedInteger('nbr_membres')->nullable();
             $table->timestamps();
         });
     }

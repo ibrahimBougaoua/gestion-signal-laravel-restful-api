@@ -2,6 +2,7 @@
 
 namespace App\Observers;
 
+use App\Equipe;
 use App\Membre;
 
 class MembreObserver
@@ -14,7 +15,10 @@ class MembreObserver
      */
     public function created(Membre $membre)
     {
-        //
+        $team = Equipe::find($membre->equipe_id);
+        $team->update([
+            'nbr_membres' => $team->nbr_membres + 1
+        ]);
     }
 
     /**

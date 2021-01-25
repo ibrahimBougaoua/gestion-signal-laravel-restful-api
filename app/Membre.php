@@ -2,13 +2,10 @@
 
 namespace App;
 
-use App\Traits\Multitenancy;
 use Illuminate\Database\Eloquent\Model;
 
 class Membre extends Model
 {
-    use Multitenancy;
-
     protected $fillable = [
         'user_id','equipe_id'
     ];
@@ -31,6 +28,11 @@ class Membre extends Model
         'created_at' => 'datetime:Y-m-d',
         'updated_at' => 'datetime:Y-m-d',
     ];
+
+    public static function boot()
+    {
+        parent::boot();
+    }
 
     public function getMembre()
     {
