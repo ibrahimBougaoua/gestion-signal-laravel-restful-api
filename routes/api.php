@@ -33,7 +33,7 @@ Route::group([
 
     // Equipe route
     Route::group(['prefix' => 'equipe'],function() {
-        Route::get('index', 'EquipesController@index');
+        Route::get('/', 'EquipesController@index');
         Route::get('show/{id}', 'EquipesController@show');
         Route::get('count', 'EquipesController@count');
         Route::post('store', 'EquipesController@store');

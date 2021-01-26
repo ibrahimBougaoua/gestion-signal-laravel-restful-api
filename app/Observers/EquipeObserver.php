@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Equipe;
+use App\Membre;
 
 class EquipeObserver
 {
@@ -36,7 +37,8 @@ class EquipeObserver
      */
     public function deleted(Equipe $equipe)
     {
-        //
+        $membre = Membre::where('equipe_id',$equipe->id);
+        $membre->delete();
     }
 
     /**

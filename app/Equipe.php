@@ -2,10 +2,12 @@
 
 namespace App;
 
+use App\Traits\Multitenancy;
 use Illuminate\Database\Eloquent\Model;
 
 class Equipe extends Model
 {
+    use Multitenancy;
 
     /**
      * The attributes that are mass assignable.
@@ -13,7 +15,7 @@ class Equipe extends Model
      * @var array
      */
     protected $fillable = [
-        'd_f_equipe','mail','telephone','chef_equipe'
+        'd_f_equipe','mail','telephone','chef_equipe','user_id','nbr_membres'
     ];
 
     /**

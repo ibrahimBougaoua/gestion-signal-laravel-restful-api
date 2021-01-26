@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use App\Equipe;
-use App\Membre;
 
 class EquipesController extends Controller
 {
@@ -16,7 +15,9 @@ class EquipesController extends Controller
      */
     public function index()
     {
-        return Equipe::get();
+        return response()->json([
+            Equipe::get()
+        ]);
     }
 
     /**
@@ -28,6 +29,10 @@ class EquipesController extends Controller
     public function store(Request $request)
     {
         try {
+            $user = User::find($request->chef_equipe);
+            if( ! $user )
+                return response()->json(['message' => 'this chef team doesn\'t exists !']);
+
             Equipe::create([
                 'd_f_equipe' => $request->d_f_equipe,
                 'mail' => $request->mail,
@@ -49,9 +54,9 @@ class EquipesController extends Controller
     public function show($id)
     {
         try {
-            $equipe = Equipe::where('id', $id)->first();
+            $equipe = Equipe::find($id);
             if( ! $equipe )
-                return response()->json(['error' => 'equipe doesn\'t exisits .']);
+                return response()->json(['error' => 'Team doesn\'t exisits .']);
             return response()->json($equipe);
         } catch (Exception $e) {
             return response()->json(['error' => 'error.']);
@@ -82,14 +87,14 @@ class EquipesController extends Controller
         try {
             $equipe = Equipe::find($id);
             if( ! $equipe )
-                return response()->json(['error' => 'this equipe doesn\'t exists']);
+                return response()->json(['error' => 'this team doesn\'t exists']);
             $equipe->update([
                 'd_f_equipe' => $request->d_f_equipe,
                 'mail' => $request->mail,
                 'telephone' => $request->telephone,
                 'chef_equipe' => $request->chef_equipe
             ]);
-            return response()->json(['message' => 'equipe updated successfully !']);
+            return response()->json(['message' => 'team updated successfully !']);
         } catch (Exception $e) {
             return response()->json(['error' => 'error.']);
         }
@@ -108,7 +113,7 @@ class EquipesController extends Controller
             if( ! $equipe )
                 return response()->json(['error' => 'error.']);
             $equipe->delete();
-            return response()->json(['message' => 'equipe deleted suucessfully !']);
+            return response()->json(['message' => 'team deleted suucessfully !']);
         } catch (Exception $e) {
             return response()->json(['error' => 'error.']);
         }
