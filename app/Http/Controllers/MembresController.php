@@ -34,6 +34,10 @@ class MembresController extends Controller
             if( ! $user )
                 return response()->json(['message' => 'this user doesn\'t exists !']);
 
+            $equipe = Equipe::find($request->equipe_id);
+            if( ! $equipe )
+                return response()->json(['message' => 'this team doesn\'t exists !']);
+
             Membre::create([
                 'user_id' => $request->user_id,
                 'equipe_id' => $request->equipe_id
@@ -53,10 +57,10 @@ class MembresController extends Controller
     public function show($id)
     {
         try {
-            $signaler = Membre::where('user_id', $id)->first();
-            if( ! $signaler )
+            $membre = Membre::where('user_id', $id)->first();
+            if( ! $membre )
                 return response()->json(['error' => 'Membre doesn\'t exisits .']);
-            return response()->json($signaler);
+            return response()->json($membre);
         } catch (Exception $e) {
             return response()->json(['error' => 'error.']);
         }
@@ -73,7 +77,7 @@ class MembresController extends Controller
     {
         try {
             $membre = Membre::where('user_id', $id);
-            if( ! $membre )
+            if( count($membre->get()) == 0 )
                 return response()->json(['error' => 'this membre doesn\'t exists']);
 
             $team = Equipe::find($request->equipe_id);
@@ -99,8 +103,8 @@ class MembresController extends Controller
     {
         try {
             $membre = Membre::where('user_id', $id);
-            if( ! $membre )
-                return response()->json(['error' => 'error.']);
+            if( count($membre->get()) == 0 )
+                return response()->json(['error' => 'this membre doesn\'t exists !']);
             $membre->delete();
             return response()->json(['message' => 'membre deleted suucessfully !']);
         } catch (Exception $e) {

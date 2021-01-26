@@ -40,7 +40,10 @@ class MembreObserver
      */
     public function deleted(Membre $membre)
     {
-        //
+        $team = Equipe::find($membre->equipe_id);
+        $team->update([
+            'nbr_membres' => $team->nbr_membres - 1
+        ]);
     }
 
     /**
