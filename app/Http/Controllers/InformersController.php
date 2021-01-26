@@ -31,9 +31,8 @@ class InformersController extends Controller
     {
         try {
             Informer::create([
-                'gest_id' => $request->gest_id,
                 'chef_id' => $request->chef_id,
-                'signalisation_id' => $request->user_id
+                'signalisation_id' => $request->signalisation_id
             ]);
             return response()->json(['message' => 'informer added successfully !'], 201);
         } catch (Exception $e) {
@@ -47,11 +46,11 @@ class InformersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($chef_id,$signalisation_id)
     {
         try {
-            $informer = Informer::where('signalisation_id', $id)->get();
-            if( ! $informer )
+            $informer = Informer::where([['chef_id','=',$chef_id],['signalisation_id','=',$signalisation_id]])->get();
+            if( count($informer->get()) == 0 )
                 return response()->json(['error' => 'informer doesn\'t exisits .']);
             return response()->json($informer);
         } catch (Exception $e) {
@@ -66,14 +65,13 @@ class InformersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,$chef_id,$signalisation_id)
     {
         try {
-            $informer = Informer::where('signalisation_id', $id);
-            if( ! $informer )
+            $informer = Informer::where([['chef_id','=',$chef_id],['signalisation_id','=',$signalisation_id]]);
+            if( count($informer->get()) == 0 )
                 return response()->json(['error' => 'this informer doesn\'t exists']);
             $informer->update([
-                'gest_id' => $request->gest_id,
                 'chef_id' => $request->chef_id,
                 'signalisation_id' => $request->signalisation_id
             ]);
@@ -89,12 +87,12 @@ class InformersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($chef_id,$signalisation_id)
     {
         try {
-            $informer = Informer::where('signalisation_id',$id);
-            if( ! $informer )
-                return response()->json(['error' => 'error.']);
+            $informer = Informer::where([['chef_id','=',$chef_id],['signalisation_id','=',$signalisation_id]]);
+            if( count($informer->get()) == 0 )
+                return response()->json(['error' => 'this informer doesn\'t exists !']);
             $informer->delete();
             return response()->json(['message' => 'informer deleted suucessfully !']);
         } catch (Exception $e) {

@@ -49,11 +49,13 @@ Route::group([
     Route::post('destroy/{id}', 'EvaluersController@destroy');
 
     // Informer route
-    Route::get('index', 'InformersController@index');
-    Route::get('show/{id}', 'InformersController@show');
-    Route::post('store', 'InformersController@store');
-    Route::post('update/{id}', 'InformersController@update');
-    Route::post('destroy/{id}', 'InformersController@destroy');
+    Route::group(['prefix' => 'informer'],function() {
+        Route::get('/', 'InformersController@index');
+        Route::get('show/{chef_id}/{signalisation_id}', 'InformersController@show');
+        Route::post('store', 'InformersController@store');
+        Route::post('update/{chef_id}/{signalisation_id}', 'InformersController@update');
+        Route::post('delete/{chef_id}/{signalisation_id}', 'InformersController@destroy');
+    });
 
     // Intervention route
     Route::group(['prefix' => 'intervention'],function() {

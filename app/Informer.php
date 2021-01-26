@@ -2,17 +2,20 @@
 
 namespace App;
 
+use App\Traits\Multitenancy;
 use Illuminate\Database\Eloquent\Model;
 
 class Informer extends Model
 {
+    use Multitenancy;
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'gest_id','chef_id','signalisation_id'
+        'user_id','chef_id','signalisation_id'
     ];
 
     /**
@@ -41,7 +44,7 @@ class Informer extends Model
 
     public function getManager()
     {
-        return $this->belongsTo('App\User','id','gest_id');
+        return $this->belongsTo('App\User','id','user_id');
     }
 
 }
