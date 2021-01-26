@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CommentRequest;
+use App\Signalisation;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use App\Comments;
 
 class CommentsController extends Controller
@@ -26,15 +26,16 @@ class CommentsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CommentRequest $request)
+    public function store(Request $request)
     {
         try {
+            $signalisation = Signalisation::find($request->signalisation_id);
+            if( ! $signalisation )
+                return response()->json(['message' => 'this signalisation doesn\'t exists !']);
+
             Comments::create([
                 'reply_id' => $request->reply_id,
-                'user_id' => $request->user_id,
                 'signalisation_id' => $request->signalisation_id,
-                'name' => $request->name,
-                'mail' => $request->mail,
                 'comment' => $request->comment
             ]);
             return response()->json(['message' => 'comment added successfully !'], 201);
@@ -75,11 +76,6 @@ class CommentsController extends Controller
             if( ! $comment )
                 return response()->json(['error' => 'this comment doesn\'t exists']);
             $comment->update([
-                'reply_id' => $request->reply_id,
-                'user_id' => $request->user_id,
-                'signalisation_id' => $request->signalisation_id,
-                'name' => $request->name,
-                'mail' => $request->mail,
                 'comment' => $request->comment
             ]);
             return response()->json(['message' => 'comment updated successfully !']);

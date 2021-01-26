@@ -15,7 +15,7 @@ class Comments extends Model
      * @var array
      */
     protected $fillable = [
-        'reply_id','user_id','signalisation_id','name','mail','comment'
+        'reply_id','user_id','signalisation_id','comment'
     ];
 
     /**
@@ -36,6 +36,11 @@ class Comments extends Model
         'created_at' => 'datetime:Y-m-d',
         'updated_at' => 'datetime:Y-m-d',
     ];
+
+    public static function boot()
+    {
+        parent::boot();
+    }
 
     public function getAuthor()
     {

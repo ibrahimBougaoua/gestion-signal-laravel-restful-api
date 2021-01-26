@@ -119,7 +119,7 @@ Route::group([
 
     // Comment route
     Route::group(['prefix' => 'comment'],function() {
-        Route::get('index', 'CommentsController@index');
+        Route::get('', 'CommentsController@index');
         Route::get('show/{id}', 'CommentsController@show');
         Route::post('store', 'CommentsController@store');
         Route::post('update/{id}', 'CommentsController@update');

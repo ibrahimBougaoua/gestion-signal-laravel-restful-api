@@ -18,8 +18,6 @@ class CreateCommentsTable extends Migration
             $table->unsignedInteger('reply_id');
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('signalisation_id');
-            $table->string('name');
-            $table->string('mail');
             $table->text('comment');
             $table->timestamps();
         });

@@ -21,6 +21,7 @@ class CreateSignalisationsTable extends Migration
             $table->string('nature')->nullable();
             $table->string('cause')->nullable();
             $table->unsignedInteger('nbr_signe')->nullable();
+            $table->unsignedInteger('nbr_comment')->nullable();
             $table->timestamps();
         });
     }
