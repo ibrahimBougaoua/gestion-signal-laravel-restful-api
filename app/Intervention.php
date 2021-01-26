@@ -29,6 +29,11 @@ class Intervention extends Model
         'updated_at' => 'datetime:Y-m-d',
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+    }
+
     public function getEvaluer()
     {
         return $this->hasMany('App\Evaluer','intervention_id','id');

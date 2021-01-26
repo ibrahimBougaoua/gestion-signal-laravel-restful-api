@@ -56,12 +56,12 @@ Route::group([
     Route::post('destroy/{id}', 'InformersController@destroy');
 
     // Intervention route
-    Route::group(['prefix' => 'message'],function() {
-        Route::get('index', 'InterventionsController@index');
+    Route::group(['prefix' => 'intervention'],function() {
+        Route::get('', 'InterventionsController@index');
         Route::get('show/{id}', 'InterventionsController@show');
         Route::post('store', 'InterventionsController@store');
         Route::post('update/{id}', 'InterventionsController@update');
-        Route::post('destroy/{id}', 'InterventionsController@destroy');
+        Route::post('delete/{id}', 'InterventionsController@destroy');
     });
 
     // Membre route

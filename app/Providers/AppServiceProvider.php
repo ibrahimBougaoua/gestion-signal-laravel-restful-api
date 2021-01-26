@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use App\Comments;
+use App\Intervention;
 use App\Membre;
+use App\Observers\InterventionObserver;
 use Illuminate\Support\ServiceProvider;
 use App\Observers\SignalisationObserver;
 use App\Observers\SignalerObserver;
@@ -36,6 +38,8 @@ class AppServiceProvider extends ServiceProvider
         Signaler::observe(SignalerObserver::class);
         Membre::observe(MembreObserver::class);
         Comments::observe(CommentsObserver::class);
+        Intervention::observe(InterventionObserver::class);
+
         Schema::defaultStringLength(191);
         //
     }

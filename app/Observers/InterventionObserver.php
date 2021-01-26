@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Intervention;
+use App\Signalisation;
 
 class InterventionObserver
 {
@@ -14,7 +15,10 @@ class InterventionObserver
      */
     public function created(Intervention $intervention)
     {
-        //
+        $signalisation = Signalisation::find($intervention->signalisation_id);
+        $signalisation->update([
+            'intervention' => 1
+        ]);
     }
 
     /**
@@ -25,7 +29,10 @@ class InterventionObserver
      */
     public function updated(Intervention $intervention)
     {
-        //
+        $signalisation = Signalisation::find($intervention->signalisation_id);
+        $signalisation->update([
+            'etat' => $intervention->etat_avancement == "final" ? 1 : 0
+        ]);
     }
 
     /**
@@ -36,7 +43,10 @@ class InterventionObserver
      */
     public function deleted(Intervention $intervention)
     {
-        //
+        $signalisation = Signalisation::find($intervention->signalisation_id);
+        $signalisation->update([
+            'intervention' => 0
+        ]);
     }
 
     /**

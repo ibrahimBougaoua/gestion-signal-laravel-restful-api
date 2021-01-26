@@ -27,7 +27,7 @@ class InterventionsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(InterventionRequest $request)
+    public function store(Request $request)
     {
         try {
             Intervention::create([
@@ -70,7 +70,6 @@ class InterventionsController extends Controller
      */
     public function update(Request $request, $id)
     {
-
         try {
             $intervention = Intervention::find($id);
             if( ! $intervention )

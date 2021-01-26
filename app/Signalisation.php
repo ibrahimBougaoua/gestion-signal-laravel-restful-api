@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Signalisation extends Model
 {
     protected $fillable = [
-        'desc','localisation','lieu','nature','cause','nbr_signe','nbr_comment'
+        'desc','localisation','lieu','nature','cause','intervention','etat','nbr_signe','nbr_comment'
     ];
 
     /**
