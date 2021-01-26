@@ -9,7 +9,6 @@ use App\Comments;
 
 class CommentsController extends Controller
 {
-
     /**
      * Display a listing of the resource.
      *
@@ -17,7 +16,9 @@ class CommentsController extends Controller
      */
     public function index()
     {
-        return Comments::get();
+        return response()->json([
+            Comments::get()
+        ]);
     }
 
     /**
@@ -33,8 +34,10 @@ class CommentsController extends Controller
             if( ! $signalisation )
                 return response()->json(['message' => 'this signalisation doesn\'t exists !']);
 
+            $reply_id = ! Comments::find($request->reply_id) ? 0 : $request->reply_id;
+
             Comments::create([
-                'reply_id' => $request->reply_id,
+                'reply_id' => $reply_id,
                 'signalisation_id' => $request->signalisation_id,
                 'comment' => $request->comment
             ]);
@@ -53,8 +56,8 @@ class CommentsController extends Controller
     public function show($id)
     {
         try {
-            $comment = Comments::where('id', $id)->first();
-            if( !$comment )
+            $comment = Comments::find($id);
+            if( ! $comment )
                 return response()->json(['error' => 'comment doesn\'t exisits .']);
             return response()->json($comment);
         } catch (Exception $e) {
@@ -95,7 +98,7 @@ class CommentsController extends Controller
         try {
             $comment = Comments::find($id);
             if( ! $comment )
-                return response()->json(['error' => 'error.']);
+                return response()->json(['error' => 'this comment doesn\'t exists !']);
             $comment->delete();
             return response()->json(['message' => 'comment deleted suucessfully !']);
         } catch (Exception $e) {

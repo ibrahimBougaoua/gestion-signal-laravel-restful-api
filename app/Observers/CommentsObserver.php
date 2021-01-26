@@ -40,10 +40,16 @@ class CommentsObserver
      */
     public function deleted(Comments $comments)
     {
+        $comment = Comments::where('reply_id',$comments->id);
+        $nbr_comment = count($comment->get());
+
         $signalisation = Signalisation::find($comments->signalisation_id);
         $signalisation->update([
-            'nbr_comment' => $signalisation->nbr_comment - 1
+            'nbr_comment' => $signalisation->nbr_comment - $nbr_comment - 1
         ]);
+
+        if( $nbr_comment != 0 )
+            $comment->delete();
     }
 
     /**
