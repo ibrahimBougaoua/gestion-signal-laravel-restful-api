@@ -4,9 +4,11 @@ namespace App\Providers;
 
 use App\Comments;
 use App\Equipe;
+use App\Evaluer;
 use App\Intervention;
 use App\Membre;
 use App\Observers\EquipeObserver;
+use App\Observers\EvaluerObserver;
 use App\Observers\InterventionObserver;
 use Illuminate\Support\ServiceProvider;
 use App\Observers\SignalisationObserver;
@@ -42,6 +44,7 @@ class AppServiceProvider extends ServiceProvider
         Comments::observe(CommentsObserver::class);
         Intervention::observe(InterventionObserver::class);
         Equipe::observe(EquipeObserver::class);
+        Evaluer::observe(EvaluerObserver::class);
 
 
         Schema::defaultStringLength(191);

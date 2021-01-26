@@ -2,13 +2,10 @@
 
 namespace App;
 
-use App\Traits\Multitenancy;
 use Illuminate\Database\Eloquent\Model;
 
 class Evaluer extends Model
 {
-    use Multitenancy;
-
     /**
      * The attributes that are mass assignable.
      *
@@ -37,6 +34,11 @@ class Evaluer extends Model
         'updated_at' => 'datetime:Y-m-d',
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+    }
+    
     public function getAuthor()
     {
         return $this->belongsTo('App\User','id','user_id');

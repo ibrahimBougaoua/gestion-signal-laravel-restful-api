@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Intervention;
+use App\User;
 use Illuminate\Http\Request;
 use App\Evaluer;
 
@@ -28,6 +30,14 @@ class EvaluersController extends Controller
     public function store(Request $request)
     {
         try {
+            $user = User::find($request->user_id);
+            if( ! $user )
+                return response()->json(['error' => 'this user doesn\'t exists !']);
+
+            $intervention = Intervention::find($request->intervention_id);
+            if( ! $intervention )
+                return response()->json(['error' => 'this intervention doesn\'t exists !']);
+
             Evaluer::create([
                 'user_id' => $request->user_id,
                 'intervention_id' => $request->intervention_id
@@ -67,8 +77,13 @@ class EvaluersController extends Controller
     {
         try {
             $evaluer = Evaluer::where('intervention_id', $id);
-            if( ! $evaluer )
+            if( count($evaluer->get()) == 0 )
                 return response()->json(['error' => 'this evaluer doesn\'t exists']);
+
+            $user = User::find($request->user_id);
+            if( ! $user )
+                return response()->json(['error' => 'this user doesn\'t exists !']);
+
             $evaluer->update([
                 'user_id' => $request->user_id,
                 'intervention_id' => $request->intervention_id
@@ -89,8 +104,8 @@ class EvaluersController extends Controller
     {
         try {
             $evaluer = Evaluer::where('intervention_id', $id);
-            if( ! $evaluer )
-                return response()->json(['error' => 'error.']);
+            if( count($evaluer->get()) == 0 )
+                return response()->json(['error' => 'this intervention doesn\'t exists !']);
             $evaluer->delete();
             return response()->json(['message' => 'evaluer deleted suucessfully !']);
         } catch (Exception $e) {

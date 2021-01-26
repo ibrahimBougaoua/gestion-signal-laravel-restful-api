@@ -42,11 +42,13 @@ Route::group([
     });
 
     // Evaluer route
-    Route::get('index', 'EvaluersController@index');
-    Route::get('show/{id}', 'EvaluersController@show');
-    Route::post('store', 'EvaluersController@store');
-    Route::post('update/{id}', 'EvaluersController@update');
-    Route::post('destroy/{id}', 'EvaluersController@destroy');
+    Route::group(['prefix' => 'evaluer'],function() {
+        Route::get('/', 'EvaluersController@index');
+        Route::get('show/{id}', 'EvaluersController@show');
+        Route::post('store', 'EvaluersController@store');
+        Route::post('update/{id}', 'EvaluersController@update');
+        Route::post('delete/{id}', 'EvaluersController@destroy');
+    });
 
     // Informer route
     Route::group(['prefix' => 'informer'],function() {
