@@ -2,12 +2,15 @@
 
 namespace App;
 
+use App\Traits\Multitenancy;
 use Illuminate\Database\Eloquent\Model;
 
 class Messages extends Model
 {
+    use Multitenancy;
+
     protected $fillable = [
-        'message','send_user_id','catch_user_id'
+        'message','user_id','catch_user_id'
     ];
 
     /**

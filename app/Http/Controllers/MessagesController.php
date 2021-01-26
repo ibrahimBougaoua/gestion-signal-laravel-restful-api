@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use JWTAuth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -17,7 +18,7 @@ class MessagesController extends Controller
     public function index()
     {
         return response()->json(
-            Messages::all()
+            Messages::get()
         );
     }
 
@@ -27,13 +28,16 @@ class MessagesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(MessageRequest $request)
+    public function store(Request $request)
     {
         try {
+            $user = User::find($request->catch_user_id);
+            if( ! $user )
+                return response()->json(['message' => 'this user doesn\'t exists !']);
+
             Messages::create([
-                'send_user_id' => $this->send_user_id,
-                'catch_user_id' => $this->catch_user_id,
-                'message' => $this->message
+                'catch_user_id' => $request->catch_user_id,
+                'message' => $request->message
             ]);
             return response()->json(['message' => 'Message added successfully !'], 201);
         } catch (Exception $e) {
@@ -52,32 +56,8 @@ class MessagesController extends Controller
         try {
             $message = Messages::find($id);
             if( ! $message )
-                return response()->json(['error' => 'message doesn\'t exisits .']);
+                return response()->json(['message' => 'this message doesn\'t exists !']);
             return response()->json($message);
-        } catch (Exception $e) {
-            return response()->json(['error' => 'error.']);
-        }
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        try {
-            $message = Messages::find($id);
-            if( ! $message )
-                return response()->json(['error' => 'this message doesn\'t exists']);
-            $message->update([
-                'send_user_id' => $this->send_user_id,
-                'catch_user_id' => $this->catch_user_id,
-                'message' => $this->message
-            ]);
-            return response()->json(['message' => 'message updated successfully !']);
         } catch (Exception $e) {
             return response()->json(['error' => 'error.']);
         }
@@ -94,7 +74,7 @@ class MessagesController extends Controller
         try {
             $message = Messages::find($id);
             if( ! $message )
-                return response()->json(['error' => 'error.']);
+                return response()->json(['message' => 'this message doesn\'t exists !']);
             $message->delete();
             return response()->json(['message' => 'message deleted suucessfully !']);
         } catch (Exception $e) {

@@ -114,16 +114,15 @@ Route::group([
 
     // Messages route
     Route::group(['prefix' => 'message'],function() {
-        Route::get('index', 'MessagesController@index');
+        Route::get('/', 'MessagesController@index');
         Route::get('show/{id}', 'MessagesController@show');
         Route::post('store', 'MessagesController@store');
-        Route::post('update/{id}', 'MessagesController@update');
         Route::post('delete/{id}', 'MessagesController@destroy');
     });
 
     // Comment route
     Route::group(['prefix' => 'comment'],function() {
-        Route::get('', 'CommentsController@index');
+        Route::get('/', 'CommentsController@index');
         Route::get('show/{id}', 'CommentsController@show');
         Route::post('store', 'CommentsController@store');
         Route::post('update/{id}', 'CommentsController@update');
