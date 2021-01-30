@@ -112,6 +112,10 @@ class EquipesController extends Controller
             $equipe = Equipe::find($id);
             if( ! $equipe )
                 return response()->json(['error' => 'error.']);
+
+            if( count($equipe->getMembres()) > 0 )
+                return response()->json(['error' => 'this team can not delete.']);
+
             $equipe->delete();
             return response()->json(['message' => 'team deleted suucessfully !']);
         } catch (Exception $e) {
