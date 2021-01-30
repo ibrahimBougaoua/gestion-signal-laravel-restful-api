@@ -79,8 +79,7 @@ class SignalisationsController extends Controller
                 'localisation' => $request->localisation,
                 'lieu' => $request->lieu,
                 'nature' => $request->nature,
-                'cause' => $request->cause,
-                'trash' => $request->trash
+                'cause' => $request->cause
             ]);
             return response()->json(['message' => 'signalisation updated successfully !']);
         } catch (Exception $e) {
@@ -100,6 +99,10 @@ class SignalisationsController extends Controller
             $signalisation = Signalisation::find($id);
             if( ! $signalisation )
                 return response()->json(['error' => 'error.']);
+
+            if( count($signalisation->getInterventions()) > 0 || count($signalisation->getSignales()) > 0 )
+                return response()->json(['error' => 'this signalisation can not delete.']);
+
             $signalisation->delete();
             return response()->json(['message' => 'signalisation deleted suucessfully !']);
         } catch (Exception $e) {
