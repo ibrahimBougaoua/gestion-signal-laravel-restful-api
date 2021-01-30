@@ -26,7 +26,7 @@ class EquipesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(EquipeRequest $request)
     {
         try {
             $user = User::find($request->chef_equipe);

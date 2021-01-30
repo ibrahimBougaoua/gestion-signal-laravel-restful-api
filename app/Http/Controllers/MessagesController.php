@@ -28,7 +28,7 @@ class MessagesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(MessageRequest $request)
     {
         try {
             $user = User::find($request->catch_user_id);
