@@ -14,6 +14,7 @@
         "laravel/framework": "5.8.*",
         "laravel/tinker": "^1.0",
         "laravel/ui": "^1.2",
+        "mcamara/laravel-localization": "^1.6",
         "tymon/jwt-auth": "^1.0"
     },
     "require-dev": {
