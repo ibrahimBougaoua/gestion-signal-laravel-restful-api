@@ -9,6 +9,11 @@ use App\Evaluer;
 
 class InterventionsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth.role:manager');
+    }
+
     /**
      * Display a listing of the resource.
      *

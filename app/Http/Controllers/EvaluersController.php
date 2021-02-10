@@ -9,6 +9,11 @@ use App\Evaluer;
 
 class EvaluersController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth.role:manager,chef');
+    }
+
     /**
      * Display a listing of the resource.
      *

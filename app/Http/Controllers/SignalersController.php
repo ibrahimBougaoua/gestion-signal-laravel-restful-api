@@ -8,6 +8,11 @@ use App\Signaler;
 
 class SignalersController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth.role:user', ['except' => ['show']]);
+    }
+
     /**
      * Display a listing of the resource.
      *

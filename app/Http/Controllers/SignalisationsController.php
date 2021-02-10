@@ -9,6 +9,11 @@ use App\Signalisation;
 
 class SignalisationsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth.role:user,manager', ['except' => ['index','show']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
