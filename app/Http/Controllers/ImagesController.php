@@ -52,30 +52,14 @@ class ImagesController extends Controller
      */
     public function show($id)
     {
-        $img_source = "storage/images/1599424543.png"; // image path/name
-        $img_binary = fread(fopen($img_source, "r"), filesize($img_source));
-        $img_string = base64_encode($img_binary);
-        return $img_string;//Images::where('id', $id)->first();
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
         try {
-            $image = Images::where('id', $id);
+            $image = Images::find($id);
             if( ! $image )
                 return response()->json(['error' => 'this image doesn\'t exists']);
-            $image->update([
-                'intervention_id' => $request->intervention_id
-            ]);
-            return response()->json(['message' => 'evaluer updated successfully !']);
-        } catch (Exception $e) {
+            return response()->json(['url' => $image->name]);
+
+        } catch (Exception $e)
+        {
             return response()->json(['error' => 'error.']);
         }
     }

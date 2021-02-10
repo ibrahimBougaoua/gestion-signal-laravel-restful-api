@@ -112,7 +112,6 @@ Route::group([
                 Route::get('index', 'ImagesController@index');
                 Route::get('show/{id}', 'ImagesController@show');
                 Route::post('store', 'ImagesController@store');
-                Route::post('update/{id}', 'ImagesController@update');
                 Route::post('destroy/{id}', 'ImagesController@destroy');
             });
 
