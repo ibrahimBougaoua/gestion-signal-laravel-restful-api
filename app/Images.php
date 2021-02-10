@@ -2,10 +2,13 @@
 
 namespace App;
 
+use App\Traits\Multitenancy;
 use Illuminate\Database\Eloquent\Model;
 
 class Images extends Model
 {
+    use Multitenancy;
+
     /**
      * The attributes that are mass assignable.
      *

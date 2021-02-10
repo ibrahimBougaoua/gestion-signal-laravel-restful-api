@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Traits\UploadImage;
 use Illuminate\Http\Request;
 use App\Images;
 
 class ImagesController extends Controller
 {
+    use UploadImage;
+
     /**
      * Display a listing of the resource.
      *
@@ -27,23 +30,18 @@ class ImagesController extends Controller
      */
     public function store(Request $request)
     {
-        $name = '';
-
-        if($request->name != '')
+        $name = $this->upload($request->name);
+        if( ! empty($name) )
         {
-            $name = time().'.jpg';
-            file_put_contents('storage/images/'.$name, base64_decode($request->name));
-            $request->name = $name;
+            $images = Images::create([
+                'name' => $name,
+                'size' => 1,
+                'user_id' => 1,
+                'signalisation_id' => 1
+            ]);
+            return response()->json(['success' => $images,'message' => 'upload successfully !'], 201);
         }
-
-          $images = Images::create([
-            'name' => $name,
-            'size' => request('size'),
-            'user_id' => request('user_id'),
-            'signalisation_id' => request('signalisation_id')
-          ]);
-
-        return response()->json(['success' => $images,'message' => 'upload successfully !'], 201);
+        return response()->json(['error' => 'error.']);
     }
 
     /**
